@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33006.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F9DB0D2C-856B-418A-A12C-759EA2719EF9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.Modules.ModuleName.Tests", "Tests\WPFBlazorChat.Modules.ModuleName.Tests\WPFBlazorChat.Modules.ModuleName.Tests.csproj", "{E6211EAF-8918-43B8-8D0D-B8301698167E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{AC8C5AB9-0423-4B35-A165-67ECBCCB74F7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.Modules.ModuleName", "Modules\WPFBlazorChat.Modules.ModuleName\WPFBlazorChat.Modules.ModuleName.csproj", "{1B10ED8B-0136-42D3-9641-6318DD829D91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E39ADE84-0A87-451E-AD14-F129B01F8DCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.Services", "Services\WPFBlazorChat.Services\WPFBlazorChat.Services.csproj", "{73FF6F80-25AB-41C4-A312-73E41E4F9602}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.Services.Interfaces", "Services\WPFBlazorChat.Services.Interfaces\WPFBlazorChat.Services.Interfaces.csproj", "{B35F522B-4A44-4BFF-9C0E-C8890BF31B7F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat", "WPFBlazorChat\WPFBlazorChat.csproj", "{F294B2CF-215D-41BA-A690-2DC253330614}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.Core", "WPFBlazorChat.Core\WPFBlazorChat.Core.csproj", "{88AE3FC2-56A9-4921-83F3-CF27E7E5F6BF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DE9B9262-CAF6-41C7-A20E-DBD111964F16}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.build.props = Directory.build.props
+		Directory.Build.Targets = Directory.Build.Targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E6211EAF-8918-43B8-8D0D-B8301698167E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6211EAF-8918-43B8-8D0D-B8301698167E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6211EAF-8918-43B8-8D0D-B8301698167E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6211EAF-8918-43B8-8D0D-B8301698167E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B10ED8B-0136-42D3-9641-6318DD829D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B10ED8B-0136-42D3-9641-6318DD829D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B10ED8B-0136-42D3-9641-6318DD829D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B10ED8B-0136-42D3-9641-6318DD829D91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73FF6F80-25AB-41C4-A312-73E41E4F9602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FF6F80-25AB-41C4-A312-73E41E4F9602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FF6F80-25AB-41C4-A312-73E41E4F9602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FF6F80-25AB-41C4-A312-73E41E4F9602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35F522B-4A44-4BFF-9C0E-C8890BF31B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35F522B-4A44-4BFF-9C0E-C8890BF31B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35F522B-4A44-4BFF-9C0E-C8890BF31B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35F522B-4A44-4BFF-9C0E-C8890BF31B7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F294B2CF-215D-41BA-A690-2DC253330614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F294B2CF-215D-41BA-A690-2DC253330614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F294B2CF-215D-41BA-A690-2DC253330614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F294B2CF-215D-41BA-A690-2DC253330614}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88AE3FC2-56A9-4921-83F3-CF27E7E5F6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88AE3FC2-56A9-4921-83F3-CF27E7E5F6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88AE3FC2-56A9-4921-83F3-CF27E7E5F6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88AE3FC2-56A9-4921-83F3-CF27E7E5F6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E6211EAF-8918-43B8-8D0D-B8301698167E} = {F9DB0D2C-856B-418A-A12C-759EA2719EF9}
+		{1B10ED8B-0136-42D3-9641-6318DD829D91} = {AC8C5AB9-0423-4B35-A165-67ECBCCB74F7}
+		{73FF6F80-25AB-41C4-A312-73E41E4F9602} = {E39ADE84-0A87-451E-AD14-F129B01F8DCA}
+		{B35F522B-4A44-4BFF-9C0E-C8890BF31B7F} = {E39ADE84-0A87-451E-AD14-F129B01F8DCA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4D305B1-8BF8-437A-88D3-4FBD0F2EBC3A}
+	EndGlobalSection
+EndGlobal
