@@ -2,21 +2,18 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Prism.Events;
-using Prism.Mvvm;
 using System.Windows;
-using WPFBlazorChat.Events;
-using WPFBlazorChat.Models;
-using WPFBlazorChat.Services;
+using WPFBlazorChat.Core;
 
-namespace WPFBlazorChat.Views;
+namespace WPFBlaozrChat.ChatModule.Views;
 
-public partial class MainWindow : Window
+/// <summary>
+/// Interaction logic for ViewA.xaml
+/// </summary>
+public partial class ChatDialog : Window
 {
-    private readonly IEventAggregator _eventAggregator;
-
-    public MainWindow(IEventAggregator eventAggregator)
+    public ChatDialog(IEventAggregator eventAggregator)
     {
-        _eventAggregator = eventAggregator;
         InitializeComponent();
 
         var serviceCollection = new ServiceCollection();
@@ -26,16 +23,8 @@ public partial class MainWindow : Window
         serviceCollection.AddHttpContextAccessor();
         serviceCollection.AddWpfBlazorWebView();
         serviceCollection.TryAddSingleton<IUserService, UserService>();
-        serviceCollection.AddSingleton(_eventAggregator);
+        serviceCollection.AddSingleton(eventAggregator);
         Resources.Add("services", serviceCollection.BuildServiceProvider());
-
-        eventAggregator.GetEvent<OpenUserDialogEvent>().Subscribe(ShowUser);
-    }
-
-    private void ShowUser(ChatUserItem user)
-    {
-        var chatWin = new ChatWindow(_eventAggregator, user);
-        chatWin.Show();
     }
 
     private void Border_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

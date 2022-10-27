@@ -1,0 +1,109 @@
+﻿@using Prism.Events
+@using WPFBlazorChat.Events
+@using WPFBlazorChat.Models
+@using WPFBlazorChat.Services
+@inject ChatUserItem CurrentUser
+@inject IUserService UserService
+@inject IEventAggregator EventAggregator
+
+<MApp>
+    <MCard Height="500"
+        Class="mt-5">
+
+        <MRow>
+            <MCol Cols="4">
+                <MList ThreeLine>
+                    @foreach (var user in _users)
+                    {
+                        if (user.UserName == CurrentUser.UserName)
+                        {
+                            continue;
+                        }
+                        @if (user.Header != null)
+                        {
+                            <MSubheader>@user.Header</MSubheader>
+                        }
+                        else if (user.Divider)
+                        {
+                            <MDivider Inset="user.Inset"></MDivider>
+                        }
+                        else
+                        {
+                            <MListItem OnClick="() => ShowUser(user)">
+                                <MListItemAvatar>
+                                    <MImage Src="@user.Avatar"></MImage>
+                                </MListItemAvatar>
+
+                                <MListItemContent>
+                                    <MListItemTitle>@((MarkupString)user.UserName)</MListItemTitle>
+                                </MListItemContent>
+                            </MListItem>
+                        }
+                    }
+                </MList>
+            </MCol>
+            <MCol Cols="20">
+                <MRow>
+                    <MTextarea 
+                        RowHeight="20"
+                        Rows="12"
+                        Name="input-7-1"
+                        Label="聊天记录"
+                        @bind-Value="receiveMsg"
+                        Hint="历史聊天记录">
+                    </MTextarea>
+                </MRow>
+                <MRow>
+                    <MTextField @bind-Value="chatMsg"
+                                Counter="10"
+                                Label="请输入聊天内容">
+                    </MTextField>
+                </MRow>
+                <MRow>
+                    <MButton Class="success" OnClick="SendMsg">发送</MButton>
+                </MRow>
+            </MCol>
+        </MRow>
+    </MCard>
+</MApp>
+
+@code
+{
+    List<ChatUserItem>? _users = null;
+    ChatUserItem? checkedUser;
+    string chatMsg;
+    string receiveMsg;
+
+    protected override Task OnInitializedAsync()
+    {
+        _users = UserService.GetUsers();
+        EventAggregator.GetEvent<SendMessageEvent>().Subscribe(ReceiveMsg, x => x.Recipient == null || x.Recipient == CurrentUser.UserName);
+        return base.OnInitializedAsync();
+    }
+
+    void ShowUser(ChatUserItem user)
+    {
+        checkedUser = user;
+    }
+
+    void ReceiveMsg(ChatMessage msg)
+    {
+        InvokeAsync(() =>
+        {
+            var sender = msg.Sender == CurrentUser.UserName ? "我" : msg.Sender;
+            receiveMsg += $"{sender}: {msg.SendTime:yyyy-MM-dd HH:mm:ss}\r\n{msg.Message}\r\n";
+            StateHasChanged();
+        });
+    }
+
+    void SendMsg()
+    {
+        if (string.IsNullOrWhiteSpace(chatMsg))
+        {
+            return;
+        }
+        var newMsg = new ChatMessage(CurrentUser!.UserName!, checkedUser?.UserName, chatMsg, DateTime.Now);
+        EventAggregator.GetEvent<SendMessageEvent>().Publish(newMsg);
+        chatMsg = string.Empty;
+    }
+}

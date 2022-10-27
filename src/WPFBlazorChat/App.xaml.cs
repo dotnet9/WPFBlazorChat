@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Prism.Events;
 using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
