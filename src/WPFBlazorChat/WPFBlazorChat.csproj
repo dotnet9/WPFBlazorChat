@@ -5,7 +5,11 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Masa.Blazor" Version="0.6.0-rc.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="7.0.0-rc.2.6866" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Styles\" />
   </ItemGroup>
 </Project>

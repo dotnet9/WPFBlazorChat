@@ -1,4 +1,5 @@
-﻿using Prism.Ioc;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
 using WPFBlazorChat.Views;
