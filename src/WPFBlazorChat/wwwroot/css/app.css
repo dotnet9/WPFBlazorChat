@@ -46,3 +46,7 @@ a, .btn-link {
     right: 0.75rem;
     top: 0.5rem;
 }
+
+::-webkit-scrollbar {
+    width: 1px;
+}
