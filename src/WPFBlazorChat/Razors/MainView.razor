@@ -1,11 +1,11 @@
 ﻿@using Prism.Events
-@using WPFBlazorChat.Events
-@using WPFBlazorChat.Models
 @using WPFBlazorChat.Services
 @inject IUserService UserService
 @inject IEventAggregator EventAggregator
 
 <MApp Dark>
+    
+    <!--标题栏开始-->
     <MAppBar Color="deep-purple accent-4 rounded-t-lg" App Dense @onmouseup="BarMouseUp" @onmousedown="BarMouseDown">
         <MAvatar Size="35" Class="ml-0 mr-5">
             <MImage Src="https://dotnet9.com/images/logo.png">
@@ -32,14 +32,16 @@
                     <MListItem @key="2" Href="https://img1.dotnet9.com/site/wechatpublic.jpg">
                         <MListItemTitle>公众号 Dotnet9</MListItemTitle>
                     </MListItem>
-                    <MListItem @key="3" OnClick="Close">
-                        <MListItemTitle>退出</MListItemTitle>
-                    </MListItem>
                 </MList>
             </ChildContent>
         </MMenu>
+        <MButton Icon OnClick="Close">
+            <MIcon>mdi-close</MIcon>
+        </MButton>
     </MAppBar>
-
+    <!--标题栏结束-->
+    
+    <!--人物列表开始-->
     <MCard Class="mx-auto rounded-lg">
         <MList ThreeLine Class="rounded-lg">
 
@@ -48,7 +50,7 @@
             {
                 @foreach (var user in _users)
                 {
-                    <MListItem OnClick="() => ShowUser(user)">
+                    <MListItem OnClick="() => SelectUser(user)">
                         <MListItemAvatar>
                             <MImage Src="@user.Avatar"></MImage>
                         </MListItemAvatar>
@@ -63,35 +65,82 @@
             }
         </MList>
     </MCard>
+    <!--人物列表结束-->
+    
+    <!--状态栏开始-->
+    <MBottomNavigation @bind-Value="_toolBarButtonIndex" BackgroundColor="@StatusBarButtonColors" Dark Shift>
+        <MButton>
+            <span>视频</span>
+            <MIcon>mdi-television-play</MIcon>
+        </MButton>
+
+        <MButton>
+            <span>音乐</span>
+            <MIcon>mdi-music-note</MIcon>
+        </MButton>
+
+        <MButton>
+            <span>书籍</span>
+            <MIcon>mdi-book</MIcon>
+        </MButton>
+
+        <MButton>
+            <span>图片</span>
+            <MIcon>mdi-image</MIcon>
+        </MButton>
+    </MBottomNavigation>
+    <!--状态栏结束-->
+
+    <!--底部工作表开始-->
+    <div class="text-center">
+        <MBottomSheet
+            @bind-Value="_isOpenSheet"
+            Persistent>
+            <ChildContent>
+                <MSheet
+                    Class="text-center"
+                    Height="200">
+                    <MCol>
+                        <MButton
+                            Class="mt-6"
+                            Text
+                            Color="success"
+                                 OnClick="()=>CloseSheet(true)">
+                            和 @_selectedUser.UserName 切磋
+                        </MButton>
+                        <MButton Class="mt-6"
+                                 Text
+                                 Color="error"
+                                 OnClick="()=>CloseSheet(false)">
+                            算了，我怕了
+                        </MButton>
+                    </MCol>
+                    <div class="py-3">
+                        @_selectedUser.Memo
+                    </div>
+                </MSheet>
+            </ChildContent>
+        </MBottomSheet>
+    </div>
+    
+    <!--底部工作表结束-->
 </MApp>
 
-@code
-{
-    List<User>? _users = null;
-
-    protected override Task OnInitializedAsync()
+    @code
     {
-        _users = UserService.GetUsers();
-        return base.OnInitializedAsync();
-    }
+        protected void BarMouseDown(MouseEventArgs e)
+        {
+            Helpers.MouseMove.StartMove();
+        }
 
-    void BarMouseDown(MouseEventArgs e)
-    {
-        Helpers.MouseMove.StartMove();
-    }
+        protected void BarMouseUp(MouseEventArgs e)
+        {
+            Helpers.MouseMove.EndMove();
+        }
+        
 
-    void BarMouseUp()
-    {
-        Helpers.MouseMove.EndMove();
+        protected void Close()
+        {
+            System.Windows.Application.Current.MainWindow?.Close();
+        }
     }
-
-    void Close()
-    {
-        System.Windows.Application.Current.MainWindow?.Close();
-    }
-
-    void ShowUser(User user)
-    {
-        EventAggregator.GetEvent<OpenUserDialogEvent>().Publish(user);
-    }
-}
