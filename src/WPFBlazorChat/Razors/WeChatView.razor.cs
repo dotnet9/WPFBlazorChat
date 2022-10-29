@@ -1,4 +1,5 @@
-﻿using WPFBlazorChat.Messagers;
+﻿using BlazorComponent;
+using WPFBlazorChat.Messagers;
 using WPFBlazorChat.Messages;
 using WPFBlazorChat.Models;
 
@@ -6,6 +7,15 @@ namespace WPFBlazorChat.Razors;
 
 public partial class WeChatView
 {
+    List<(string icon, string text)> quickMenus = new()
+    {
+        ("mdi-message-text", "消息"),
+        ("mdi-email", "邮件"),
+        ("mdi-domain", "Office"),
+    };
+
+    StringNumber model = 1;
+
     List<User>? _users = null;
     User? checkedUser;
     string chatMsg;

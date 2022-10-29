@@ -5,65 +5,111 @@
 
 <MApp>
     <MCard Height="500"
-        Class="mt-5">
+           Class="mt-5">
 
         <MRow>
-            <MCol Cols="4">
+            <!--左侧快捷菜单开始-->
+            <MList Width="60">
+                <MListItemGroup
+                    @bind-Value="model"
+                    Color="indigo">
+
+                    <MListItem @key="@CurrentUser.UserName">
+                        <MListItemAvatar>
+                            <MImage Src="@CurrentUser.Avatar"></MImage>
+                        </MListItemAvatar>
+                    </MListItem>
+                    @foreach (var item in quickMenus)
+                    {
+                        <MListItem @key="item">
+                            <MListItemIcon>
+                                <MIcon>@item.icon</MIcon>
+                            </MListItemIcon>
+                        </MListItem>
+                    }
+                </MListItemGroup>
+            </MList>
+            <!--左侧快捷菜单结束-->
+
+            <!--中间好友列表（群）开始-->
+            <MCol Cols="3">
                 <MList ThreeLine>
                     @foreach (var user in _users)
                     {
-                        if (user.UserName == CurrentUser.UserName)
+                        if (user.Id == CurrentUser.Id)
                         {
                             continue;
                         }
-                        @if (user.Header != null)
-                        {
-                            <MSubheader>@user.Header</MSubheader>
-                        }
-                        else if (user.Divider)
-                        {
-                            <MDivider Inset="user.Inset"></MDivider>
-                        }
-                        else
-                        {
-                            <MListItem OnClick="() => ShowUser(user)">
-                                <MListItemAvatar>
-                                    <MImage Src="@user.Avatar"></MImage>
-                                </MListItemAvatar>
+                        <MListItem OnClick="() => ShowUser(user)">
+                            <MListItemAvatar>
+                                <MImage Src="@user.Avatar"></MImage>
+                            </MListItemAvatar>
 
-                                <MListItemContent>
-                                    <MListItemTitle>@((MarkupString)user.UserName)</MListItemTitle>
-                                </MListItemContent>
-                            </MListItem>
-                        }
+                            <MListItemContent>
+                                <MListItemTitle>@((MarkupString)user.UserName)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11:42 pm</MListItemTitle>
+                                <MListItemSubtitle>待会儿吃？</MListItemSubtitle>
+                            </MListItemContent>
+                        </MListItem>
                     }
                 </MList>
             </MCol>
-            <MCol Cols="20">
+            <!--中间好友列表（群）结束-->
+
+            <!--右侧聊天区开始-->
+            <MCol Cols="21">
                 <MRow>
-                    <MTextarea 
+                    <MToolbar  Flat @onmouseup="BarMouseUp" @onmousedown="BarMouseDown">
+                        <ChildContent>
+                            <MToolbarTitle>@checkedUser?.UserName</MToolbarTitle>
+
+                            <MSpacer></MSpacer>
+                            <MButton Icon OnClick="Close">
+                                <MIcon>mdi-close</MIcon>
+                            </MButton>
+                        </ChildContent>
+                    </MToolbar>
+                </MRow>
+                <MDivider Inset="true"></MDivider>
+                <MRow>
+                    <MTextarea
                         RowHeight="20"
-                        Rows="12"
+                        Rows="18" Class="mx-4"
                         Name="input-7-1"
-                        Label="聊天记录"
-                        @bind-Value="receiveMsg"
-                        Hint="历史聊天记录">
+                        @bind-Value="receiveMsg">
                     </MTextarea>
                 </MRow>
+                <MDivider Inset="true"></MDivider>
                 <MRow>
-                    <MTextField @bind-Value="chatMsg"
-                                Counter="10"
-                                Label="请输入聊天内容">
-                    </MTextField>
-                </MRow>
-                <MRow>
-                    <MButton Class="success" OnClick="SendMsg">发送</MButton>
+                    <MTextarea AppendIcon="mdi-microphone"
+                               Class="mx-4"
+                               RowHeight="20"
+                               Rows="5"
+                               HideDetails="@true"
+                               Label="请输入聊天内容"
+                               @bind-Value="chatMsg">
+                    </MTextarea>
                 </MRow>
             </MCol>
+            <!--右侧聊天区结束-->
         </MRow>
     </MCard>
 </MApp>
 
 @code
 {
+    protected void BarMouseDown(MouseEventArgs e)
+    {
+        Helpers.MouseMove.StartMove();
+    }
+
+    protected void BarMouseUp(MouseEventArgs e)
+    {
+        Helpers.MouseMove.EndMove();
+    }
+
+
+    protected void Close()
+    {
+        System.Windows.Application.Current.MainWindow?.Close();
+    }
 }

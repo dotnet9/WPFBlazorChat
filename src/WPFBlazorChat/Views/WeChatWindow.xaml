@@ -1,13 +1,13 @@
 ﻿<Window
     x:Class="WPFBlazorChat.Views.WeChatWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:razors="clr-namespace:WPFBlazorChat.Razors"
-    Width="800"
-    Height="600"
+    Width="1200"
+    Height="800"
     AllowsTransparency="True"
     Background="Transparent"
     WindowStartupLocation="CenterScreen"
@@ -15,10 +15,11 @@
     mc:Ignorable="d">
 
     <Border Background="#01ffffff" CornerRadius="5">
-        <blazor:BlazorWebView Margin="1"
-                              ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                              HostPage="wwwroot\index.html"
-                              Services="{DynamicResource services}">
+        <blazor:BlazorWebView
+            Margin="1"
+            HostPage="wwwroot\index.html"
+            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+            Services="{DynamicResource services}">
             <blazor:BlazorWebView.RootComponents>
                 <blazor:RootComponent ComponentType="{x:Type razors:WeChatView}" Selector="#app" />
             </blazor:BlazorWebView.RootComponents>

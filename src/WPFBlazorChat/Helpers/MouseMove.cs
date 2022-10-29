@@ -25,8 +25,8 @@ public static class MouseMove
         isMoving = true;
         startMouseX = GetX();
         startMouseY = GetY();
-        startWindLeft = Application.Current.MainWindow.Left;
-        startWindTop = Application.Current.MainWindow.Top;
+        startWindLeft = GetActiveWindow().Left;
+        startWindTop = GetActiveWindow().Top;
     }
 
     public static void EndMove()
@@ -40,8 +40,8 @@ public static class MouseMove
         {
             double moveX = GetX() - startMouseX;
             double moveY = GetY() - startMouseY;
-            Application.Current.MainWindow.Left = startWindLeft + moveX;
-            Application.Current.MainWindow.Top = startWindTop + moveY;
+            GetActiveWindow().Left = startWindLeft + moveX;
+            GetActiveWindow().Top = startWindTop + moveY;
         }
     }
 
@@ -53,5 +53,10 @@ public static class MouseMove
     private static int GetY()
     {
         return System.Windows.Forms.Control.MousePosition.Y;
+    }
+
+    private static Window? GetActiveWindow()
+    {
+        return Application.Current.Windows.Cast<Window>().FirstOrDefault(currentWindow => currentWindow.IsActive);
     }
 }
