@@ -1,10 +1,7 @@
-﻿@using Prism.Events
-@using WPFBlazorChat.Events
-@using WPFBlazorChat.Models
+﻿@using WPFBlazorChat.Models
 @using WPFBlazorChat.Services
 @inject User CurrentUser
 @inject IUserService UserService
-@inject IEventAggregator EventAggregator
 
 <MApp>
     <MCard Height="500"
@@ -69,41 +66,4 @@
 
 @code
 {
-    List<User>? _users = null;
-    User? checkedUser;
-    string chatMsg;
-    string receiveMsg;
-
-    protected override Task OnInitializedAsync()
-    {
-        _users = UserService.GetUsers();
-        EventAggregator.GetEvent<SendMessageEvent>().Subscribe(ReceiveMsg, x => x.Recipient == null || x.Recipient == CurrentUser.UserName);
-        return base.OnInitializedAsync();
-    }
-
-    void ShowUser(User user)
-    {
-        checkedUser = user;
-    }
-
-    void ReceiveMsg(ChatMessage msg)
-    {
-        InvokeAsync(() =>
-        {
-            var sender = msg.Sender == CurrentUser.UserName ? "我" : msg.Sender;
-            receiveMsg += $"{sender}: {msg.SendTime:yyyy-MM-dd HH:mm:ss}\r\n{msg.Message}\r\n";
-            StateHasChanged();
-        });
-    }
-
-    void SendMsg()
-    {
-        if (string.IsNullOrWhiteSpace(chatMsg))
-        {
-            return;
-        }
-        var newMsg = new ChatMessage(CurrentUser!.UserName!, checkedUser?.UserName, chatMsg, DateTime.Now);
-        EventAggregator.GetEvent<SendMessageEvent>().Publish(newMsg);
-        chatMsg = string.Empty;
-    }
 }

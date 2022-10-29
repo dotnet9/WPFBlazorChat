@@ -1,5 +1,5 @@
 ﻿using BlazorComponent;
-using WPFBlazorChat.Events;
+using WPFBlazorChat.Messages;
 using WPFBlazorChat.Models;
 
 namespace WPFBlazorChat.Razors;
@@ -41,12 +41,12 @@ public partial class MainView
         _isOpenSheet = true;
     }
 
-    private void CloseSheet(bool needChat=true)
+    private void CloseSheet(bool needChat = true)
     {
         _isOpenSheet = false;
         if (needChat)
         {
-            EventAggregator.GetEvent<OpenUserDialogEvent>().Publish(_selectedUser!);
+            Messagers.Messenger.Default.Publish(this, new OpenWeChatMessage(this, _selectedUser!));
         }
     }
 }

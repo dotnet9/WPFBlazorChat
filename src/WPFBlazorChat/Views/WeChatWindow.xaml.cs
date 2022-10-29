@@ -1,17 +1,16 @@
 ﻿using BlazorComponent.I18n;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Prism.Events;
 using System.Windows;
 using WPFBlazorChat.Models;
 using WPFBlazorChat.Services;
 
 namespace WPFBlazorChat.Views;
 
-public partial class ChatWindow : Window
+public partial class WeChatWindow : Window
 {
 
-    public ChatWindow(IEventAggregator eventAggregator, User user)
+    public WeChatWindow(User user)
     {
         InitializeComponent();
 
@@ -23,7 +22,6 @@ public partial class ChatWindow : Window
         serviceCollection.AddWpfBlazorWebView();
         serviceCollection.TryAddSingleton<IUserService, UserService>();
         serviceCollection.AddSingleton(user);
-        serviceCollection.AddSingleton(eventAggregator);
         Resources.Add("services", serviceCollection.BuildServiceProvider());
     }
 

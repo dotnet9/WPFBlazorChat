@@ -1,23 +1,17 @@
-﻿using Prism.Events;
-using Prism.Ioc;
-using Prism.Modularity;
-using System.Windows;
+﻿using WPFBlazorChat.Messagers;
+using WPFBlazorChat.Messages;
 using WPFBlazorChat.Views;
 
 namespace WPFBlazorChat;
 
 public partial class App
 {
-    protected override Window CreateShell()
+    public App()
     {
-        return Container.Resolve<MainWindow>();
-    }
-
-    protected override void RegisterTypes(IContainerRegistry containerRegistry)
-    {
-    }
-
-    protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
-    {
+        Messenger.Default.Subscribe<OpenWeChatMessage>(this, msg =>
+        {
+            var chatWin = new WeChatWindow(msg.User);
+            chatWin.Show();
+        }, ThreadOption.UiThread, null);
     }
 }
