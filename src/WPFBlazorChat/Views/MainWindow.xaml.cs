@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Prism.Events;
-using Prism.Mvvm;
 using System.Windows;
 using WPFBlazorChat.Events;
 using WPFBlazorChat.Models;
@@ -17,10 +16,14 @@ public partial class MainWindow : Window
     public MainWindow(IEventAggregator eventAggregator)
     {
         _eventAggregator = eventAggregator;
-        InitializeComponent();
 
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddMasaBlazor();
+        serviceCollection.AddMasaBlazor(x => x.ConfigureTheme(theme =>
+        {
+            theme.Dark = true;
+            theme.Themes.Dark.Primary = "#4318FF";
+            theme.Themes.Dark.Accent = "#4318FF";
+        }));
         serviceCollection.TryAddScoped<I18n>();
         serviceCollection.TryAddScoped<CookieStorage>();
         serviceCollection.AddHttpContextAccessor();
@@ -30,21 +33,16 @@ public partial class MainWindow : Window
         Resources.Add("services", serviceCollection.BuildServiceProvider());
 
         eventAggregator.GetEvent<OpenUserDialogEvent>().Subscribe(ShowUser);
+
+        InitializeComponent();
+
+
+        Helpers.MouseMove.Init();
     }
 
-    private void ShowUser(ChatUserItem user)
+    private void ShowUser(User user)
     {
         var chatWin = new ChatWindow(_eventAggregator, user);
         chatWin.Show();
-    }
-
-    private void Border_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
-        this.DragMove();
-    }
-
-    private void Close_Click(object sender, RoutedEventArgs e)
-    {
-        this.Close();
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace WPFBlazorChat.Models;
-public class ChatUserItem
+public class User
 {
     public string? Header { get; set; }
     public string? Avatar { get; set; }

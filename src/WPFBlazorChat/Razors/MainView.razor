@@ -5,90 +5,69 @@
 @inject IUserService UserService
 @inject IEventAggregator EventAggregator
 
-<MApp>
-    <MCard
-        Class="mx-auto">
-        <MToolbar Color="cyan"
-                  Dark>
-            <MAppBarNavIcon></MAppBarNavIcon>
+<MApp Dark>
+    <MAppBar Color="deep-purple accent-4 rounded-t-lg" App Dense @onmouseup="BarMouseUp" @onmousedown="BarMouseDown">
+        <MAvatar Size="35" Class="ml-0 mr-5">
+            <MImage Src="https://dotnet9.com/images/logo.png">
+            </MImage>
+        </MAvatar>
+        <MToolbarTitle>点击人物打开一个微信（假装）</MToolbarTitle>
+        <MSpacer></MSpacer>
+        <MButton icon>
+            <MIcon>mdi-magnify</MIcon>
+        </MButton>
 
-            <MToolbarTitle>关键字搜索</MToolbarTitle>
+        <MMenu Left
+               Bottom>
+            <ActivatorContent>
+                <MButton Icon @attributes="@context.Attrs">
+                    <MIcon>mdi-dots-vertical</MIcon>
+                </MButton>
+            </ActivatorContent>
+            <ChildContent>
+                <MList>
+                    <MListItem @key="1" Href="https://dotnet9.com">
+                        <MListItemTitle>网站 Dotnet9.com</MListItemTitle>
+                    </MListItem>
+                    <MListItem @key="2" Href="https://img1.dotnet9.com/site/wechatpublic.jpg">
+                        <MListItemTitle>公众号 Dotnet9</MListItemTitle>
+                    </MListItem>
+                    <MListItem @key="3" OnClick="Close">
+                        <MListItemTitle>退出</MListItemTitle>
+                    </MListItem>
+                </MList>
+            </ChildContent>
+        </MMenu>
+    </MAppBar>
 
-            <MSpacer></MSpacer>
+    <MCard Class="mx-auto rounded-lg">
+        <MList ThreeLine Class="rounded-lg">
 
-            <MButton Icon>
-                <MIcon>mdi-magnify</MIcon>
-            </MButton>
-        </MToolbar>
-
-        <MList ThreeLine>
+            <MSubheader>人物列表</MSubheader>
             @if (_users is {Count:>0})
             {
                 @foreach (var user in _users)
                 {
-                    @if (user.Header != null)
-                    {
-                        <MSubheader>@user.Header</MSubheader>
-                    }
-                    else if (user.Divider)
-                    {
-                        <MDivider Inset="user.Inset"></MDivider>
-                    }
-                    else
-                    {
-                        <MListItem OnClick="() => ShowUser(user)">
-                            <MListItemAvatar>
-                                <MImage Src="@user.Avatar"></MImage>
-                            </MListItemAvatar>
+                    <MListItem OnClick="() => ShowUser(user)">
+                        <MListItemAvatar>
+                            <MImage Src="@user.Avatar"></MImage>
+                        </MListItemAvatar>
 
-                            <MListItemContent>
-                                <MListItemTitle>@((MarkupString)user.UserName)</MListItemTitle>
-                                <MListItemSubtitle>@((MarkupString)user.Memo)</MListItemSubtitle>
-                            </MListItemContent>
-                        </MListItem>
-                    }
+                        <MListItemContent>
+                            <MListItemTitle>@((MarkupString)user.UserName)</MListItemTitle>
+                            <MListItemSubtitle>@((MarkupString)user.Memo)</MListItemSubtitle>
+                        </MListItemContent>
+                    </MListItem>
+                    <MDivider Inset="true"></MDivider>
                 }
             }
         </MList>
     </MCard>
-
-
-    <div class="text-center">
-        <MDialog @bind-Value="dialog"
-                 Width="500">
-
-            <ChildContent>
-                <MCard>
-                    <MCardTitle Class="text-h5 grey lighten-2">
-                        打开与 @checkedUser.UserName 的对话
-                    </MCardTitle>
-
-                    <MCardText>
-                        <MListItemTitle>@checkedUser.UserName</MListItemTitle>
-                        <MListItemSubtitle>@checkedUser.Memo</MListItemSubtitle>
-                    </MCardText>
-
-                    <MDivider></MDivider>
-
-                    <MCardActions>
-                        <MSpacer></MSpacer>
-                        <MButton Color="primary"
-                                 Text
-                                 OnClick="() => dialog = false">
-                            开始吧
-                        </MButton>
-                    </MCardActions>
-                </MCard>
-            </ChildContent>
-        </MDialog>
-    </div>
 </MApp>
 
 @code
 {
-    List<ChatUserItem>? _users = null;
-    ChatUserItem? checkedUser;
-    bool dialog;
+    List<User>? _users = null;
 
     protected override Task OnInitializedAsync()
     {
@@ -96,10 +75,23 @@
         return base.OnInitializedAsync();
     }
 
-    void ShowUser(ChatUserItem user)
+    void BarMouseDown(MouseEventArgs e)
     {
-        checkedUser = user;
-        dialog = true;
+        Helpers.MouseMove.StartMove();
+    }
+
+    void BarMouseUp()
+    {
+        Helpers.MouseMove.EndMove();
+    }
+
+    void Close()
+    {
+        System.Windows.Application.Current.MainWindow?.Close();
+    }
+
+    void ShowUser(User user)
+    {
         EventAggregator.GetEvent<OpenUserDialogEvent>().Publish(user);
     }
 }

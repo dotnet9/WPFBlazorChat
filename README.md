@@ -25,3 +25,7 @@ https://learn.microsoft.com/zh-cn/aspnet/core/blazor/hybrid/tutorials/wpf?view=a
 **演示发送消息**
 
 ![演示发送消息](./docs/4-send-message.gif)
+
+**参考资料**
+
+https://github.com/James231/BlazorDesktopWPF-CustomTitleBar- 窗体拖动：

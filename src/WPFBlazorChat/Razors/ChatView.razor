@@ -2,7 +2,7 @@
 @using WPFBlazorChat.Events
 @using WPFBlazorChat.Models
 @using WPFBlazorChat.Services
-@inject ChatUserItem CurrentUser
+@inject User CurrentUser
 @inject IUserService UserService
 @inject IEventAggregator EventAggregator
 
@@ -69,8 +69,8 @@
 
 @code
 {
-    List<ChatUserItem>? _users = null;
-    ChatUserItem? checkedUser;
+    List<User>? _users = null;
+    User? checkedUser;
     string chatMsg;
     string receiveMsg;
 
@@ -81,7 +81,7 @@
         return base.OnInitializedAsync();
     }
 
-    void ShowUser(ChatUserItem user)
+    void ShowUser(User user)
     {
         checkedUser = user;
     }

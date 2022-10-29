@@ -4,84 +4,20 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:WPFBlazorChat"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prism="http://prismlibrary.com/"
     xmlns:razors="clr-namespace:WPFBlazorChat.Razors"
-    Title="{Binding Title}"
     Width="500"
-    Height="700"
-    prism:ViewModelLocator.AutoWireViewModel="True"
+    Height="685"
     AllowsTransparency="True"
     Background="Transparent"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-    <Grid>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="35" />
-        </Grid.RowDefinitions>
-        <!--  Grid Background  -->
-        <Grid Grid.RowSpan="3" MouseDown="Border_MouseDown">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <Border Width="220" CornerRadius="5 0 0 5">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Offset="0" Color="#343155" />
-                        <GradientStop Offset="1" Color="#3B2E58" />
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-
-            <Border Grid.Column="1" CornerRadius="0 5 5 0">
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Offset="0" Color="#3E3A65" />
-                        <GradientStop Offset="1" Color="#473765" />
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-            <TextBlock
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Margin="10,10,0,0"
-                VerticalAlignment="Top"
-                Foreground="White"
-                Text="{Binding Title}" />
-            <Button
-                Grid.Column="1"
-                Margin="0,5,10,0"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="{x:Null}"
-                BorderBrush="{x:Null}"
-                Click="Close_Click"
-                Content="X"
-                Foreground="White" />
-        </Grid>
-
-        <blazor:BlazorWebView Margin="1"
-            Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Disabled"
-            HostPage="wwwroot\index.html"
-            Services="{DynamicResource services}">
+    <Border Background="#01ffffff" CornerRadius="5">
+        <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
             <blazor:BlazorWebView.RootComponents>
                 <blazor:RootComponent ComponentType="{x:Type razors:MainView}" Selector="#app" />
             </blazor:BlazorWebView.RootComponents>
         </blazor:BlazorWebView>
-        <Grid Grid.Row="2">
-            <TextBlock
-                Margin="20,0,0,0"
-                VerticalAlignment="Center"
-                Foreground="White">
-                这里是状态栏
-            </TextBlock>
-        </Grid>
-    </Grid>
+    </Border>
 </Window>

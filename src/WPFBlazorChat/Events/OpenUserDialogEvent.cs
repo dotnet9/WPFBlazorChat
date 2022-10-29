@@ -2,6 +2,6 @@
 using WPFBlazorChat.Models;
 
 namespace WPFBlazorChat.Events;
-public class OpenUserDialogEvent : PubSubEvent<ChatUserItem>
+public class OpenUserDialogEvent : PubSubEvent<User>
 {
 }

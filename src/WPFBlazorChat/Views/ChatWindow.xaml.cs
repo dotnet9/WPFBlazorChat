@@ -5,23 +5,15 @@ using Prism.Events;
 using System.Windows;
 using WPFBlazorChat.Models;
 using WPFBlazorChat.Services;
-using WPFBlazorChat.ViewModels;
 
 namespace WPFBlazorChat.Views;
 
 public partial class ChatWindow : Window
 {
-    public ChatWindowViewModel? ViewModel
-    {
-        get { return this.DataContext as ChatWindowViewModel; }
-        set { this.DataContext = value; }
-    }
 
-    public ChatWindow(IEventAggregator eventAggregator, ChatUserItem user)
+    public ChatWindow(IEventAggregator eventAggregator, User user)
     {
         InitializeComponent();
-
-        this.ViewModel ??= new ChatWindowViewModel(user);
 
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddMasaBlazor();
