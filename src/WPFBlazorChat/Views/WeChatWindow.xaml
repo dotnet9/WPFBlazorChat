@@ -4,16 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:WPFBlazorChat.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:razors="clr-namespace:WPFBlazorChat.Razors"
-    xmlns:helpers="clr-namespace:WPFBlazorChat.Helpers"
     xmlns:ui="http://schemas.modernwpf.com/2019"
-    Width="1200"
-    Height="800"
+    Width="910"
+    Height="640"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
     ui:TitleBar.IsBackButtonVisible="False"
     ui:TitleBar.Style="{DynamicResource AppTitleBarStyle}"
     ui:WindowHelper.UseModernWindowStyle="True"
+    WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
 
     <Grid>

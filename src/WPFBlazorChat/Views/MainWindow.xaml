@@ -10,6 +10,7 @@
     xmlns:ui="http://schemas.modernwpf.com/2019"
     Width="500"
     Height="743"
+    WindowStartupLocation="CenterScreen"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
     ui:TitleBar.IsBackButtonVisible="False"
     ui:TitleBar.Style="{DynamicResource AppTitleBarStyle}"

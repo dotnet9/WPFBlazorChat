@@ -1,22 +1,26 @@
 ﻿using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Threading;
+using Application = System.Windows.Application;
 
 namespace WPFBlazorChat.Services;
-public class WindowService: IWindowService
+
+public class WindowService : IWindowService
 {
-    private bool _isMoving = false;
-    private double _startMouseX = 0;
-    private double _startMouseY = 0;
-    private double _startWindLeft = 0;
-    private double _startWindTop = 0;
+    private bool _isMoving;
+    private double _startMouseX;
+    private double _startMouseY;
+    private double _startWindLeft;
+    private double _startWindTop;
 
     public void Init()
     {
         DispatcherTimer dispatcherTimer = new();
         dispatcherTimer.Tick += UpdateWindowPos;
-        dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 50);
+        dispatcherTimer.Interval = TimeSpan.FromMicroseconds(17);
         dispatcherTimer.Start();
     }
+
     public void StartMove()
     {
         _isMoving = true;
@@ -33,25 +37,24 @@ public class WindowService: IWindowService
 
     public void Minimize()
     {
-        GetActiveWindow()!.WindowState=WindowState.Minimized;
+        GetActiveWindow()!.WindowState = WindowState.Minimized;
     }
 
     public void Maximize()
     {
-        var window = GetActiveWindow();
-        if (window.WindowState == WindowState.Maximized)
-        {
-            window.WindowState = WindowState.Normal;
-        }
-        else
-        {
-            window.WindowState = WindowState.Maximized;
-        }
+        Window? window = GetActiveWindow();
+        window!.WindowState = window!.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+    }
+
+
+    public bool IsMaximized()
+    {
+        return GetActiveWindow()!.WindowState == WindowState.Maximized;
     }
 
     public void Close()
     {
-        GetActiveWindow().Close();
+        GetActiveWindow()!.Close();
     }
 
 
@@ -64,18 +67,24 @@ public class WindowService: IWindowService
 
         double moveX = GetX() - _startMouseX;
         double moveY = GetY() - _startMouseY;
-        GetActiveWindow()!.Left = _startWindLeft + moveX;
-        GetActiveWindow()!.Top = _startWindTop + moveY;
+        Window? window = GetActiveWindow();
+        if (window == null)
+        {
+            return;
+        }
+
+        window.Left = _startWindLeft + moveX;
+        window.Top = _startWindTop + moveY;
     }
 
     private static int GetX()
     {
-        return System.Windows.Forms.Control.MousePosition.X;
+        return Control.MousePosition.X;
     }
 
     private static int GetY()
     {
-        return System.Windows.Forms.Control.MousePosition.Y;
+        return Control.MousePosition.Y;
     }
 
     private static Window? GetActiveWindow()

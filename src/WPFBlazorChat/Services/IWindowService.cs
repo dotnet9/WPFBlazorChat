@@ -7,5 +7,6 @@ public interface IWindowService
     void StopMove();
     void Minimize();
     void Maximize();
+    bool IsMaximized();
     void Close();
 }
