@@ -1,11 +1,11 @@
 ﻿@using WPFBlazorChat.Services
-@using System.Windows.Forms.VisualStyles
+@inject IWindowService WindowService
 @inject IUserService UserService
 
 <MApp Dark>
     
     <!--标题栏开始-->
-    <MAppBar Color="deep-purple accent-4" App Dense @onmouseup="BarMouseUp" @onmousedown="BarMouseDown">
+    <MAppBar Color="deep-purple accent-4" Style="cursor: default" App Dense @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
         <MAvatar Size="35" Class="ml-0 mr-5">
             <MImage Src="https://dotnet9.com/images/logo.png">
             </MImage>
@@ -34,7 +34,7 @@
                 </MList>
             </ChildContent>
         </MMenu>
-        <MButton Icon OnClick="Close">
+        <MButton Icon OnClick="WindowService.Close">
             <MIcon>mdi-close</MIcon>
         </MButton>
     </MAppBar>
@@ -124,22 +124,3 @@
     
     <!--底部工作表结束-->
 </MApp>
-
-    @code
-    {
-        protected void BarMouseDown(MouseEventArgs e)
-        {
-            Helpers.MouseMove.StartMove();
-        }
-
-        protected void BarMouseUp(MouseEventArgs e)
-        {
-            Helpers.MouseMove.EndMove();
-        }
-        
-
-        protected void Close()
-        {
-            System.Windows.Application.Current.MainWindow?.Close();
-        }
-    }

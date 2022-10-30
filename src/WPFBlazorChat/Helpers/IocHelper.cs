@@ -6,7 +6,7 @@ using WPFBlazorChat.Services;
 
 namespace WPFBlazorChat.Helpers;
 
-public static class ServiceCollectionExtension
+public static class IocHelper
 {
     public const string IocKey = "services";
 
@@ -26,6 +26,7 @@ public static class ServiceCollectionExtension
         _services.AddHttpContextAccessor();
         _services.AddWpfBlazorWebView();
         _services.TryAddSingleton<IUserService, UserService>();
+        _services.TryAddSingleton<IWindowService, WindowService>();
 
         return _services!;
     }

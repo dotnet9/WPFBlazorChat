@@ -1,6 +1,7 @@
 ﻿@using WPFBlazorChat.Models
 @using WPFBlazorChat.Services
 @inject User CurrentUser
+@inject IWindowService WindowService
 @inject IUserService UserService
 
 <MApp>
@@ -58,12 +59,12 @@
             <!--右侧聊天区开始-->
             <MCol Cols="21">
                 <MRow>
-                    <MToolbar  Flat @onmouseup="BarMouseUp" @onmousedown="BarMouseDown">
+                    <MToolbar Flat Style="cursor: default" @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
                         <ChildContent>
                             <MToolbarTitle>@checkedUser?.UserName</MToolbarTitle>
 
                             <MSpacer></MSpacer>
-                            <MButton Icon OnClick="Close">
+                            <MButton Icon OnClick="WindowService.Close">
                                 <MIcon>mdi-close</MIcon>
                             </MButton>
                         </ChildContent>
@@ -94,22 +95,3 @@
         </MRow>
     </MCard>
 </MApp>
-
-@code
-{
-    protected void BarMouseDown(MouseEventArgs e)
-    {
-        Helpers.MouseMove.StartMove();
-    }
-
-    protected void BarMouseUp(MouseEventArgs e)
-    {
-        Helpers.MouseMove.EndMove();
-    }
-
-
-    protected void Close()
-    {
-        System.Windows.Application.Current.MainWindow?.Close();
-    }
-}

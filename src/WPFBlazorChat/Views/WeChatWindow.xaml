@@ -6,23 +6,25 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:razors="clr-namespace:WPFBlazorChat.Razors"
+    xmlns:helpers="clr-namespace:WPFBlazorChat.Helpers"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
     Width="1200"
     Height="800"
-    AllowsTransparency="True"
-    Background="Transparent"
-    WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
+    ui:TitleBar.ExtendViewIntoTitleBar="True"
+    ui:TitleBar.IsBackButtonVisible="False"
+    ui:TitleBar.Style="{DynamicResource AppTitleBarStyle}"
+    ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d">
 
-    <Border Background="#01ffffff" CornerRadius="5">
+    <Grid>
         <blazor:BlazorWebView
             Margin="1"
             HostPage="wwwroot\index.html"
             ScrollViewer.VerticalScrollBarVisibility="Disabled"
-            Services="{DynamicResource services}">
+            Services="{DynamicResource {x:Static helpers:IocHelper.IocKey}}">
             <blazor:BlazorWebView.RootComponents>
                 <blazor:RootComponent ComponentType="{x:Type razors:WeChatView}" Selector="#app" />
             </blazor:BlazorWebView.RootComponents>
         </blazor:BlazorWebView>
-    </Border>
+    </Grid>
 </Window>

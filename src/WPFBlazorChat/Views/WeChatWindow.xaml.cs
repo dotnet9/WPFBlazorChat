@@ -9,12 +9,10 @@ public partial class WeChatWindow : Window
 {
     public WeChatWindow(User user)
     {
-        var services = ServiceCollectionExtension.GetIoc();
+        var services = IocHelper.GetIoc();
         services.AddSingleton(user);
         Resources.SetIoc(services);
 
         InitializeComponent();
-
-        Helpers.MouseMove.Init();
     }
 }

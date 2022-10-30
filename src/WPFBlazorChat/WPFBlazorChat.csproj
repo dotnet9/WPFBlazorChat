@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Masa.Blazor" Version="0.6.0-rc.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="7.0.0-rc.2.6866" />
+    <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
     <PackageReference Include="Simplify.Windows.Forms" Version="1.1.2" />
   </ItemGroup>
 </Project>

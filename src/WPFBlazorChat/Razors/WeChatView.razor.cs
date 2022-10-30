@@ -23,6 +23,7 @@ public partial class WeChatView
 
     protected override Task OnInitializedAsync()
     {
+        WindowService.Init();
         _users = UserService.GetUsers();
 
         Messenger.Default.Subscribe<SendChatLogMessage>(this, ReceiveMsg, ThreadOption.UiThread, null);

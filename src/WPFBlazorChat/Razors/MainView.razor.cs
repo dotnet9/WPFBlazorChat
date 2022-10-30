@@ -31,6 +31,7 @@ public partial class MainView
 
     protected override Task OnInitializedAsync()
     {
+        WindowService.Init();
         _users = UserService.GetUsers();
         return base.OnInitializedAsync();
     }

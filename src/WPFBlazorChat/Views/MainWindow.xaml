@@ -6,18 +6,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
     xmlns:razors="clr-namespace:WPFBlazorChat.Razors"
+    xmlns:helpers="clr-namespace:WPFBlazorChat.Helpers"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
     Width="500"
     Height="743"
-    AllowsTransparency="True"
-    Background="Transparent"
-    WindowStartupLocation="CenterScreen"
-    WindowStyle="None"
+    ui:TitleBar.ExtendViewIntoTitleBar="True"
+    ui:TitleBar.IsBackButtonVisible="False"
+    ui:TitleBar.Style="{DynamicResource AppTitleBarStyle}"
+    ui:WindowHelper.UseModernWindowStyle="True"
     mc:Ignorable="d">
-    <Border Background="#01ffffff" CornerRadius="5">
-        <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
+    <Grid>
+        <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource {x:Static helpers:IocHelper.IocKey}}">
             <blazor:BlazorWebView.RootComponents>
                 <blazor:RootComponent ComponentType="{x:Type razors:MainView}" Selector="#app" />
             </blazor:BlazorWebView.RootComponents>
         </blazor:BlazorWebView>
-    </Border>
+    </Grid>
 </Window>
