@@ -26,8 +26,14 @@ public class WindowService : IWindowService
         _isMoving = true;
         _startMouseX = GetX();
         _startMouseY = GetY();
-        _startWindLeft = GetActiveWindow()!.Left;
-        _startWindTop = GetActiveWindow()!.Top;
+        var window = GetActiveWindow();
+        if (window == null)
+        {
+            return;
+        }
+
+        _startWindLeft = window.Left;
+        _startWindTop = window.Top;
     }
 
     public void StopMove()
@@ -37,24 +43,42 @@ public class WindowService : IWindowService
 
     public void Minimize()
     {
-        GetActiveWindow()!.WindowState = WindowState.Minimized;
+        var window = GetActiveWindow();
+        if (window != null)
+        {
+            window.WindowState = WindowState.Minimized;
+        }
     }
 
     public void Maximize()
     {
-        Window? window = GetActiveWindow();
-        window!.WindowState = window!.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        var window = GetActiveWindow();
+        if (window != null)
+        {
+            window.WindowState =
+                window.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        }
     }
 
 
     public bool IsMaximized()
     {
-        return GetActiveWindow()!.WindowState == WindowState.Maximized;
+        var window = GetActiveWindow();
+        if (window != null)
+        {
+            return window.WindowState == WindowState.Maximized;
+        }
+
+        return false;
     }
 
     public void Close()
     {
-        GetActiveWindow()!.Close();
+        var window = GetActiveWindow();
+        if (window != null)
+        {
+            window.Close();
+        }
     }
 
 

@@ -33,93 +33,92 @@
     </MAppBar>
     <!--标题栏结束-->
 
-    <MRow>
-        <!--左侧快捷菜单开始-->
-        <MList Width="55">
-            <MListItemGroup
-                @bind-Value="model"
-                Color="indigo">
+    <MMain>
+        <MRow>
+            <!--左侧快捷菜单开始-->
+            <MList Width="55">
+                <MListItemGroup
+                    @bind-Value="model"
+                    Color="indigo">
 
-                <MListItem @key="@CurrentUser.UserName">
-                    <MListItemAvatar>
-                        <MImage Src="@CurrentUser.Avatar"></MImage>
-                    </MListItemAvatar>
-                </MListItem>
-                @foreach (var item in quickMenus)
-                {
-                    <MListItem @key="item">
-                        <MListItemIcon>
-                            <MIcon>@item.icon</MIcon>
-                        </MListItemIcon>
-                    </MListItem>
-                }
-            </MListItemGroup>
-        </MList>
-        <!--左侧快捷菜单结束-->
-
-        <MDivider Vertical></MDivider>
-
-        <!--中间好友列表（群）开始-->
-        <MCol Cols="3">
-            <MList ThreeLine>
-                @foreach (var user in _users)
-                {
-                    if (user.Id == CurrentUser.Id)
-                    {
-                        continue;
-                    }
-                    <MListItem OnClick="() => ShowUser(user)">
+                    <MListItem @key="@CurrentUser.UserName">
                         <MListItemAvatar>
-                            <MImage Src="@user.Avatar"></MImage>
+                            <MImage Src="@CurrentUser.Avatar"></MImage>
                         </MListItemAvatar>
-
-                        <MListItemContent>
-                            <MListItemTitle>@((MarkupString)user.UserName)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11:42 pm</MListItemTitle>
-                            <MListItemSubtitle>待会儿吃？</MListItemSubtitle>
-                        </MListItemContent>
                     </MListItem>
-                }
+                    @foreach (var item in quickMenus)
+                    {
+                        <MListItem @key="item">
+                            <MListItemIcon>
+                                <MIcon>@item.icon</MIcon>
+                            </MListItemIcon>
+                        </MListItem>
+                    }
+                </MListItemGroup>
             </MList>
-        </MCol>
-        <!--中间好友列表（群）结束-->
+            <!--左侧快捷菜单结束-->
 
-        <MDivider Vertical></MDivider>
+            <MDivider Vertical></MDivider>
 
-        <!--右侧聊天区开始-->
-        <MCol Cols="21">
-            <MRow>
-                <MToolbar Flat Style="cursor: default" @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
-                    <ChildContent>
-                        <MToolbarTitle>@checkedUser?.UserName</MToolbarTitle>
+            <!--中间好友列表（群）开始-->
+            <MCol Cols="3">
+                <MList ThreeLine>
+                    @foreach (var user in _users)
+                    {
+                        if (user.Id == CurrentUser.Id)
+                        {
+                            continue;
+                        }
+                        <MListItem OnClick="() => ShowUser(user)">
+                            <MListItemAvatar>
+                                <MImage Src="@user.Avatar"></MImage>
+                            </MListItemAvatar>
 
-                        <MSpacer></MSpacer>
-                        <MButton Icon OnClick="WindowService.Close">
-                            <MIcon>mdi-close</MIcon>
-                        </MButton>
-                    </ChildContent>
-                </MToolbar>
-            </MRow>
-            <MDivider Inset="true"></MDivider>
-            <MRow>
-                <MTextarea
-                    RowHeight="20"
-                    Rows="18" Class="mx-4"
-                    Name="input-7-1"
-                    @bind-Value="receiveMsg">
-                </MTextarea>
-            </MRow>
-            <MDivider Inset="true"></MDivider>
-            <MRow>
-                <MTextarea AppendIcon="mdi-microphone"
-                           Class="mx-4"
-                           RowHeight="20"
-                           Rows="5"
-                           HideDetails="@true"
-                           Label="请输入聊天内容"
-                           @bind-Value="chatMsg">
-                </MTextarea>
-            </MRow>
-        </MCol>
-        <!--右侧聊天区结束-->
-    </MRow>
+                            <MListItemContent>
+                                <MListItemTitle>@((MarkupString)user.UserName)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11:42 pm</MListItemTitle>
+                                <MListItemSubtitle>待会儿吃？</MListItemSubtitle>
+                            </MListItemContent>
+                        </MListItem>
+                    }
+                </MList>
+            </MCol>
+            <!--中间好友列表（群）结束-->
+
+            <MDivider Vertical></MDivider>
+
+            <!--右侧聊天区开始-->
+            <MCol Cols="21">
+                <MRow>
+                    <MToolbar Flat>
+                        <ChildContent>
+                            <MToolbarTitle>@checkedUser?.UserName</MToolbarTitle>
+
+                            <MSpacer></MSpacer>
+                        </ChildContent>
+                    </MToolbar>
+                </MRow>
+                <MDivider Inset="true"></MDivider>
+                <MRow>
+                    <MTextarea
+                        RowHeight="20"
+                        Rows="18" Class="mx-4"
+                        Name="input-7-1"
+                        @bind-Value="receiveMsg">
+                    </MTextarea>
+                </MRow>
+                <MDivider Inset="true"></MDivider>
+                <MRow>
+                    <MTextarea AppendIcon="mdi-microphone"
+                               Class="mx-4"
+                               RowHeight="20"
+                               Rows="5"
+                               HideDetails="@true"
+                               Label="请输入聊天内容"
+                               @bind-Value="chatMsg">
+                    </MTextarea>
+                </MRow>
+            </MCol>
+            <!--右侧聊天区结束-->
+        </MRow>
+    </MMain>
 </MApp>
