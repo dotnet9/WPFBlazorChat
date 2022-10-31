@@ -1,8 +1,9 @@
 ﻿using BlazorComponent;
-using WPFBlazorChat.Messages;
-using WPFBlazorChat.Models;
+using WPFBlazorChat.Core.Messagers;
+using WPFBlazorChat.Shared.Messages;
+using WPFBlazorChat.Shared.Models;
 
-namespace WPFBlazorChat.Razors;
+namespace WPFBlazorChat.WebApp.Views;
 
 public partial class MainView
 {
@@ -47,7 +48,7 @@ public partial class MainView
         _isOpenSheet = false;
         if (needChat)
         {
-            Messagers.Messenger.Default.Publish(this, new OpenWeChatMessage(this, _selectedUser!));
+            Messenger.Default.Publish(this, new OpenWeChatMessage(this, _selectedUser!));
         }
     }
 }

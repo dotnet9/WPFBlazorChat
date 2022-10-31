@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using WPFBlazorChat.Helpers;
+﻿using WPFBlazorChat.Helpers;
 
 namespace WPFBlazorChat.Views;
 

@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="clr-namespace:WPFBlazorChat.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:razors="clr-namespace:WPFBlazorChat.Razors"
     xmlns:ui="http://schemas.modernwpf.com/2019"
+    xmlns:views="clr-namespace:WPFBlazorChat.WebApp.Views;assembly=WPFBlazorChat.WebApp"
     Width="910"
     Height="640"
     ui:TitleBar.ExtendViewIntoTitleBar="True"
@@ -24,7 +24,7 @@
             ScrollViewer.VerticalScrollBarVisibility="Disabled"
             Services="{DynamicResource {x:Static helpers:IocHelper.IocKey}}">
             <blazor:BlazorWebView.RootComponents>
-                <blazor:RootComponent ComponentType="{x:Type razors:WeChatView}" Selector="#app" />
+                <blazor:RootComponent ComponentType="{x:Type views:WeChatView}" Selector="#app" />
             </blazor:BlazorWebView.RootComponents>
         </blazor:BlazorWebView>
     </Grid>

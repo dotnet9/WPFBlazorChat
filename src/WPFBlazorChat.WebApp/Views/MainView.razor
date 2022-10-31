@@ -1,4 +1,5 @@
-﻿@using WPFBlazorChat.Services
+﻿@using WPFBlazorChat.Core.Services
+@using WPFBlazorChat.Shared.Services
 @inject IWindowService WindowService
 @inject IUserService UserService
 
@@ -55,8 +56,8 @@
                         </MListItemAvatar>
 
                         <MListItemContent>
-                            <MListItemTitle>@((MarkupString)user.UserName)</MListItemTitle>
-                            <MListItemSubtitle>@((MarkupString)user.Memo)</MListItemSubtitle>
+                            <MListItemTitle>@user.UserName</MListItemTitle>
+                            <MListItemSubtitle>@user.Memo</MListItemSubtitle>
                         </MListItemContent>
                     </MListItem>
                     <MDivider Inset="true"></MDivider>
@@ -105,7 +106,7 @@
                             Text
                             Color="success"
                                  OnClick="()=>CloseSheet(true)">
-                            和 @_selectedUser.UserName 切磋
+                            和 @_selectedUser?.UserName 切磋
                         </MButton>
                         <MButton Class="mt-6"
                                  Text
@@ -115,7 +116,7 @@
                         </MButton>
                     </MCol>
                     <div class="py-3">
-                        @_selectedUser.Memo
+                        @_selectedUser?.Memo
                     </div>
                 </MSheet>
             </ChildContent>

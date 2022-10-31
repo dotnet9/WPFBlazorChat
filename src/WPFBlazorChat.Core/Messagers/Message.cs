@@ -1,4 +1,4 @@
-﻿namespace WPFBlazorChat.Messagers;
+﻿namespace WPFBlazorChat.Core.Messagers;
 
 public abstract class Message
 {

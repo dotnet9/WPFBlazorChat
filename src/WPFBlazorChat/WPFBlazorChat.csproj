@@ -14,4 +14,8 @@
     <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
     <PackageReference Include="Simplify.Windows.Forms" Version="1.1.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WPFBlazorChat.Core\WPFBlazorChat.Core.csproj" />
+    <ProjectReference Include="..\WPFBlazorChat.WebApp\WPFBlazorChat.WebApp.csproj" />
+  </ItemGroup>
 </Project>

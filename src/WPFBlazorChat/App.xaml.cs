@@ -1,5 +1,5 @@
-﻿using WPFBlazorChat.Messagers;
-using WPFBlazorChat.Messages;
+﻿using WPFBlazorChat.Core.Messagers;
+using WPFBlazorChat.Shared.Messages;
 using WPFBlazorChat.Views;
 
 namespace WPFBlazorChat;

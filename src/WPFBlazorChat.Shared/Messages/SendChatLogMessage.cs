@@ -1,7 +1,7 @@
-﻿using WPFBlazorChat.Messagers;
-using WPFBlazorChat.Models;
+﻿using WPFBlazorChat.Shared.Models;
+using WPFBlazorChat.Core.Messagers;
 
-namespace WPFBlazorChat.Messages;
+namespace WPFBlazorChat.Shared.Messages;
 
 public class SendChatLogMessage : Message
 {

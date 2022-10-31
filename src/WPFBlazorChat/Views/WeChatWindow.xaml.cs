@@ -1,7 +1,5 @@
-﻿using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using WPFBlazorChat.Helpers;
-using WPFBlazorChat.Models;
+﻿using WPFBlazorChat.Helpers;
+using WPFBlazorChat.Shared.Models;
 
 namespace WPFBlazorChat.Views;
 

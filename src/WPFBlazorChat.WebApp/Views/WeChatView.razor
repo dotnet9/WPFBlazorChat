@@ -1,5 +1,6 @@
-﻿@using WPFBlazorChat.Models
-@using WPFBlazorChat.Services
+﻿@using WPFBlazorChat.Core.Services
+@using WPFBlazorChat.Shared.Models
+@using WPFBlazorChat.Shared.Services
 @inject User CurrentUser
 @inject IWindowService WindowService
 @inject IUserService UserService
@@ -38,7 +39,7 @@
             <!--左侧快捷菜单开始-->
             <MList Width="55">
                 <MListItemGroup
-                    @bind-Value="model"
+                    @bind-Value="_model"
                     Color="indigo">
 
                     <MListItem @key="@CurrentUser.UserName">
@@ -63,22 +64,25 @@
             <!--中间好友列表（群）开始-->
             <MCol Cols="3">
                 <MList ThreeLine>
-                    @foreach (var user in _users)
+                    @if (_users is {Count: > 0})
                     {
-                        if (user.Id == CurrentUser.Id)
+                        @foreach (var user in _users)
                         {
-                            continue;
-                        }
-                        <MListItem OnClick="() => ShowUser(user)">
-                            <MListItemAvatar>
-                                <MImage Src="@user.Avatar"></MImage>
-                            </MListItemAvatar>
+                            if (user.Id == CurrentUser.Id)
+                            {
+                                continue;
+                            }
+                            <MListItem OnClick="() => ShowUser(user)">
+                                <MListItemAvatar>
+                                    <MImage Src="@user.Avatar"></MImage>
+                                </MListItemAvatar>
 
-                            <MListItemContent>
-                                <MListItemTitle>@((MarkupString)user.UserName)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11:42 pm</MListItemTitle>
-                                <MListItemSubtitle>待会儿吃？</MListItemSubtitle>
-                            </MListItemContent>
-                        </MListItem>
+                                <MListItemContent>
+                                    <MListItemTitle>@(user.UserName)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11:42 pm</MListItemTitle>
+                                    <MListItemSubtitle>待会儿吃？</MListItemSubtitle>
+                                </MListItemContent>
+                            </MListItem>
+                        }
                     }
                 </MList>
             </MCol>
@@ -91,7 +95,7 @@
                 <MRow>
                     <MToolbar Flat>
                         <ChildContent>
-                            <MToolbarTitle>@checkedUser?.UserName</MToolbarTitle>
+                            <MToolbarTitle>@_checkedUser?.UserName</MToolbarTitle>
 
                             <MSpacer></MSpacer>
                         </ChildContent>
@@ -103,7 +107,7 @@
                         RowHeight="20"
                         Rows="18" Class="mx-4"
                         Name="input-7-1"
-                        @bind-Value="receiveMsg">
+                        @bind-Value="_receiveMsg">
                     </MTextarea>
                 </MRow>
                 <MDivider Inset="true"></MDivider>
@@ -114,7 +118,7 @@
                                Rows="5"
                                HideDetails="@true"
                                Label="请输入聊天内容"
-                               @bind-Value="chatMsg">
+                               @bind-Value="_chatMsg">
                     </MTextarea>
                 </MRow>
             </MCol>

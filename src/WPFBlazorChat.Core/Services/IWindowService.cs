@@ -1,4 +1,4 @@
-﻿namespace WPFBlazorChat.Services;
+﻿namespace WPFBlazorChat.Core.Services;
 
 public interface IWindowService
 {

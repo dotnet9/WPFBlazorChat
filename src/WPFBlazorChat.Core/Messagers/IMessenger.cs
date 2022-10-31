@@ -1,4 +1,4 @@
-﻿namespace WPFBlazorChat.Messagers;
+﻿namespace WPFBlazorChat.Core.Messagers;
 
 public interface IMessenger
 {
@@ -8,4 +8,11 @@ public interface IMessenger
     void Unsubscribe<TMessage>(object recipient, Action<TMessage>? action = null) where TMessage : Message;
 
     void Publish<TMessage>(object sender, TMessage message, string? tag = null) where TMessage : Message;
+}
+
+public enum ThreadOption
+{
+    PublisherThread,
+    BackgroundThread,
+    UiThread
 }

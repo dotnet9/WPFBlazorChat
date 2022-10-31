@@ -1,4 +1,4 @@
-﻿namespace WPFBlazorChat.Messagers;
+﻿namespace WPFBlazorChat.Core.Messagers;
 
 public class Messenger : IMessenger
 {
@@ -132,11 +132,4 @@ public class WeakActionAndToken
             factAction.Invoke(message);
         }
     }
-}
-
-public enum ThreadOption
-{
-    PublisherThread,
-    BackgroundThread,
-    UiThread
 }

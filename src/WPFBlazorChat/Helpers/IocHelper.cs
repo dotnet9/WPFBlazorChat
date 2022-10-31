@@ -1,8 +1,6 @@
-﻿using BlazorComponent.I18n;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Windows;
-using WPFBlazorChat.Services;
+﻿using WPFBlazorChat.Core.Services;
+using WPFBlazorChat.Shared.Services;
+using WPFBlazorChat.WebApp.MasaExtensions;
 
 namespace WPFBlazorChat.Helpers;
 
@@ -20,10 +18,7 @@ public static class IocHelper
         }
 
         _services = new ServiceCollection();
-        _services.AddMasaBlazor();
-        _services.TryAddScoped<I18n>();
-        _services.TryAddScoped<CookieStorage>();
-        _services.AddHttpContextAccessor();
+        _services.AddMasaSetup();
         _services.AddWpfBlazorWebView();
         _services.TryAddSingleton<IUserService, UserService>();
         _services.TryAddSingleton<IWindowService, WindowService>();

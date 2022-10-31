@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System.Windows.Threading;
+using WPFBlazorChat.Core.Services;
 using Application = System.Windows.Application;
 
 namespace WPFBlazorChat.Services;

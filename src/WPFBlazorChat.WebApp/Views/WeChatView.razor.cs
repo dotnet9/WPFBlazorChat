@@ -1,25 +1,25 @@
 ﻿using BlazorComponent;
-using WPFBlazorChat.Messagers;
-using WPFBlazorChat.Messages;
-using WPFBlazorChat.Models;
+using WPFBlazorChat.Core.Messagers;
+using WPFBlazorChat.Shared.Messages;
+using WPFBlazorChat.Shared.Models;
 
-namespace WPFBlazorChat.Razors;
+namespace WPFBlazorChat.WebApp.Views;
 
 public partial class WeChatView
 {
-    List<(string icon, string text)> quickMenus = new()
+    private List<(string icon, string text)> quickMenus = new()
     {
         ("mdi-message-text", "消息"),
         ("mdi-email", "邮件"),
         ("mdi-domain", "Office"),
     };
 
-    StringNumber model = 1;
+    private StringNumber _model = 1;
 
-    List<User>? _users = null;
-    User? checkedUser;
-    string chatMsg;
-    string receiveMsg;
+    private List<User>? _users = null;
+    private User? _checkedUser;
+    private string? _chatMsg;
+    private string? _receiveMsg;
 
     protected override Task OnInitializedAsync()
     {
@@ -32,7 +32,7 @@ public partial class WeChatView
 
     void ShowUser(User user)
     {
-        checkedUser = user;
+        _checkedUser = user;
     }
 
     void ReceiveMsg(SendChatLogMessage msg)
@@ -40,21 +40,21 @@ public partial class WeChatView
         InvokeAsync(() =>
         {
             var sender = msg.Log.Sender == CurrentUser.UserName ? "我" : msg.Sender;
-            receiveMsg += $"{sender}: {msg.Log.SendTime:yyyy-MM-dd HH:mm:ss}\r\n{msg.Log.Message}\r\n";
+            _receiveMsg += $"{sender}: {msg.Log.SendTime:yyyy-MM-dd HH:mm:ss}\r\n{msg.Log.Message}\r\n";
             StateHasChanged();
         });
     }
 
     void SendMsg()
     {
-        if (string.IsNullOrWhiteSpace(chatMsg))
+        if (string.IsNullOrWhiteSpace(_chatMsg))
         {
             return;
         }
 
-        var newMsg = new ChatLog(CurrentUser!.UserName!, checkedUser?.UserName, chatMsg, DateTime.Now);
+        var newMsg = new ChatLog(CurrentUser!.UserName!, _checkedUser?.UserName, _chatMsg, DateTime.Now);
 
         Messenger.Default.Publish(this, new SendChatLogMessage(this, newMsg));
-        chatMsg = string.Empty;
+        _chatMsg = string.Empty;
     }
 }
