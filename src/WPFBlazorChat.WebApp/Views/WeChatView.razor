@@ -10,7 +10,10 @@
     <!--标题栏开始-->
     <MAppBar App @onmousedown="WindowService.StartMove" @onmouseup="WindowService.StopMove" @ondblclick="WindowService.Maximize"
              ElevateOnScroll Color="white" Dense Absolute ScrollTarget="#scrolling-sheet-2">
-        <MAppBarNavIcon></MAppBarNavIcon>
+        <MTextField @bind-Value="_searchKey"
+                    Counter="10"
+                    Label="搜索"
+                    required></MTextField>
         <MAppBarTitle>Title</MAppBarTitle>
         <MSpacer></MSpacer>
 
@@ -34,31 +37,41 @@
     </MAppBar>
     <!--标题栏结束-->
 
+    <!--左侧快捷菜单开始-->
+    <MNavigationDrawer App @bind-Value="_drawer" @bind-MiniVariant="_miniDrawer" Permanent Dark>
+        <MListItem Class="px-2">
+            <MListItemAvatar Size="40">
+                <MImage Src="@CurrentUser.Avatar"></MImage>
+            </MListItemAvatar>
+
+            <MListItemTitle>@CurrentUser.UserName</MListItemTitle>
+
+            <MButton Icon OnClick="() => _miniDrawer = !_miniDrawer">
+                <MIcon>mdi-chevron-left</MIcon>
+            </MButton>
+        </MListItem>
+
+        <MDivider></MDivider>
+
+        <MList Dense>
+            @foreach (var item in quickMenus)
+            {
+                <MListItem Link>
+                    <MListItemIcon>
+                        <MIcon>@item.icon</MIcon>
+                    </MListItemIcon>
+
+                    <MListItemContent>
+                        <MListItemTitle>@item.text</MListItemTitle>
+                    </MListItemContent>
+                </MListItem>
+            }
+        </MList>
+    </MNavigationDrawer>
+    <!--左侧快捷菜单结束-->
+
     <MMain>
         <MRow>
-            <!--左侧快捷菜单开始-->
-            <MList Width="55">
-                <MListItemGroup
-                    @bind-Value="_model"
-                    Color="indigo">
-
-                    <MListItem @key="@CurrentUser.UserName">
-                        <MListItemAvatar>
-                            <MImage Src="@CurrentUser.Avatar"></MImage>
-                        </MListItemAvatar>
-                    </MListItem>
-                    @foreach (var item in quickMenus)
-                    {
-                        <MListItem @key="item">
-                            <MListItemIcon>
-                                <MIcon>@item.icon</MIcon>
-                            </MListItemIcon>
-                        </MListItem>
-                    }
-                </MListItemGroup>
-            </MList>
-            <!--左侧快捷菜单结束-->
-
             <MDivider Vertical></MDivider>
 
             <!--中间好友列表（群）开始-->

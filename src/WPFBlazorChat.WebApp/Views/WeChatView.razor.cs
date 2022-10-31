@@ -7,6 +7,8 @@ namespace WPFBlazorChat.WebApp.Views;
 
 public partial class WeChatView
 {
+    private bool _miniDrawer = true;
+    private bool _drawer = true;
     private List<(string icon, string text)> quickMenus = new()
     {
         ("mdi-message-text", "消息"),
@@ -15,7 +17,7 @@ public partial class WeChatView
     };
 
     private StringNumber _model = 1;
-
+    private string? _searchKey;
     private List<User>? _users = null;
     private User? _checkedUser;
     private string? _chatMsg;

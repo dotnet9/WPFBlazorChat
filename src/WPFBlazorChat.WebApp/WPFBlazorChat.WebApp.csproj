@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WPFBlazorChat.Core\WPFBlazorChat.Core.csproj" />
     <ProjectReference Include="..\WPFBlazorChat.Shared\WPFBlazorChat.Shared.csproj" />
   </ItemGroup>
 

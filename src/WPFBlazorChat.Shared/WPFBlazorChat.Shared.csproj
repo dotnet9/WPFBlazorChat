@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Datas\user.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Datas\user.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WPFBlazorChat.Core\WPFBlazorChat.Core.csproj" />
   </ItemGroup>
 
