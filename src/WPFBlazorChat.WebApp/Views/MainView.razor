@@ -1,4 +1,5 @@
-﻿@using WPFBlazorChat.Core.Services
+﻿@using Masa.Blazor.Presets
+@using WPFBlazorChat.Core.Services
 @using WPFBlazorChat.Shared.Services
 @inject IWindowService WindowService
 @inject IUserService UserService
@@ -11,7 +12,7 @@
             <MImage Src="https://dotnet9.com/images/logo.png">
             </MImage>
         </MAvatar>
-        <MToolbarTitle Style="font-size:16px;">WPF + Blazor</MToolbarTitle>
+        <MToolbarTitle Style="font-size: 16px;">WPF + Blazor</MToolbarTitle>
         <MSpacer></MSpacer>
 
         <MMenu Left
@@ -32,7 +33,7 @@
                 </MList>
             </ChildContent>
         </MMenu>
-        <MButton Icon OnClick="WindowService.Close">
+        <MButton Icon OnClick="() => this._showComfirmDialog = true">
             <MIcon>mdi-close</MIcon>
         </MButton>
     </MAppBar>
@@ -71,13 +72,13 @@
                     </MList>
                 </MTabItem>
                 <MTabItem Value="1">
-                    <MImage Src="/imgs/apple-music-note.jpg" AspectRatio="1"/>
+                    <MImage Src="/imgs/music.png"/>
                 </MTabItem>
                 <MTabItem Value="2">
-                    <MImage Src="/imgs/book.png" AspectRatio="1"/>
+                    <MImage Src="/imgs/book.png"/>
                 </MTabItem>
                 <MTabItem Value="3">
-                    <MImage Src="/imgs/panda.jpg" AspectRatio="1"/>
+                    <MImage Src="/imgs/meitu.png"/>
                 </MTabItem>
             </MTabsItems>
         </MCard>
@@ -85,7 +86,7 @@
     <!--人物列表结束-->
 
     <!--状态栏开始-->
-    <MBottomNavigation App @bind-Value="_toolBarButtonIndex" BackgroundColor="@StatusBarButtonColors" Dark Shift>
+    <MBottomNavigation App Dense @bind-Value="_toolBarButtonIndex" BackgroundColor="@StatusBarButtonColors" Dark Shift>
         <MButton>
             <span>聊天</span>
             <MIcon>mdi-chat</MIcon>
@@ -118,27 +119,29 @@
                     Class="text-center"
                     Height="200">
                     <MCol>
-                        <MButton
-                            Class="mt-6"
-                            Text
-                            Color="success"
-                            OnClick="() => CloseSheet(true)">
-                            和 @_selectedUser?.UserName 切磋
+                        <MButton Class="mt-3" Color="success" OnClick="() => CloseSheet(true)">
+                            撩 他/她
                         </MButton>
-                        <MButton Class="mt-6"
-                                 Text
-                                 Color="error"
-                                 OnClick="() => CloseSheet(false)">
-                            算了，我怕了
+                        <MButton Class="mt-3" Text Color="error" OnClick="() => CloseSheet(false)">
+                            算了，溜
                         </MButton>
                     </MCol>
-                    <div class="py-3">
+                    <div class="py-3" Style="font-size: 14px;">
                         @_selectedUser?.Memo
                     </div>
                 </MSheet>
             </ChildContent>
         </MBottomSheet>
     </div>
-
     <!--底部工作表结束-->
+
+    <!--确认对话框开始-->
+    <PConfirm Visible="_showComfirmDialog"
+              Title="关闭窗体"
+              Type="AlertTypes.Warning"
+              OnCancel="() => _showComfirmDialog = false"
+              OnOk="WindowService.Close">
+        您确认关闭吗？没事，待会儿再打开就是!
+    </PConfirm>
+    <!--确认对话框结束-->
 </MApp>

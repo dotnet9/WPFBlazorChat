@@ -13,10 +13,12 @@
         <MTextField @bind-Value="_searchKey"
                     Counter="10"
                     Label="搜索"
+                    Outlined
+                    Dense
                     required></MTextField>
         <MAppBarTitle>Title</MAppBarTitle>
         <MSpacer></MSpacer>
-
+        
         <MButton Icon OnClick="WindowService.Minimize">
             <MIcon>mdi-window-minimize</MIcon>
         </MButton>
@@ -33,7 +35,6 @@
         <MButton Icon OnClick="WindowService.Close">
             <MIcon>mdi-close</MIcon>
         </MButton>
-
     </MAppBar>
     <!--标题栏结束-->
 
@@ -70,7 +71,7 @@
     </MNavigationDrawer>
     <!--左侧快捷菜单结束-->
 
-    <MMain>
+    <MMain App>
         <MRow>
             <MDivider Vertical></MDivider>
 

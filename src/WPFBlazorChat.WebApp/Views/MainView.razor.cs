@@ -8,14 +8,17 @@ namespace WPFBlazorChat.WebApp.Views;
 public partial class MainView
 {
     // 用户列表
-    List<User>? _users = null;
+    private List<User>? _users = null;
     private User? _selectedUser = null;
 
+    // 确认对话框
+    private bool _showComfirmDialog = false;
+
     // 点击的状态栏按钮索引
-    StringNumber _toolBarButtonIndex = 0;
+    private StringNumber _toolBarButtonIndex = 0;
 
     // 状态栏按钮颜色
-    string StatusBarButtonColors
+    private string StatusBarButtonColors
     {
         get
         {
