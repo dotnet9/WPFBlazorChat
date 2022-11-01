@@ -4,18 +4,15 @@
 @inject IUserService UserService
 
 <MApp Dark>
-    
+
     <!--标题栏开始-->
     <MAppBar Color="deep-purple accent-4" Style="cursor: default" App Dense @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
         <MAvatar Size="35" Class="ml-0 mr-5">
             <MImage Src="https://dotnet9.com/images/logo.png">
             </MImage>
         </MAvatar>
-        <MToolbarTitle>点击人物打开微信(假的)</MToolbarTitle>
+        <MToolbarTitle Style="font-size:16px;">WPF + Blazor</MToolbarTitle>
         <MSpacer></MSpacer>
-        <MButton icon>
-            <MIcon>mdi-magnify</MIcon>
-        </MButton>
 
         <MMenu Left
                Bottom>
@@ -40,38 +37,58 @@
         </MButton>
     </MAppBar>
     <!--标题栏结束-->
-    
+
     <!--人物列表开始-->
-    <MCard Class="mx-auto rounded-lg">
-        <MList ThreeLine Class="rounded-lg">
+    <MMain>
+        <MCard Class="mx-auto rounded-lg">
+            <MTabsItems @bind-Value="_toolBarButtonIndex">
+                <MTabItem Value="0">
+                    <MList ThreeLine Class="rounded-lg">
+                        @if (_users is {Count:>0})
+                        {
+                            @foreach (var user in _users)
+                            {
+                                <MTooltip Top>
+                                    <ActivatorContent>
+                                        <MListItem OnClick="() => SelectUser(user)">
+                                            <MListItemAvatar>
+                                                <MImage Src="@user.Avatar"></MImage>
+                                            </MListItemAvatar>
 
-            <MSubheader>人物列表</MSubheader>
-            @if (_users is {Count:>0})
-            {
-                @foreach (var user in _users)
-                {
-                    <MListItem OnClick="() => SelectUser(user)">
-                        <MListItemAvatar>
-                            <MImage Src="@user.Avatar"></MImage>
-                        </MListItemAvatar>
-
-                        <MListItemContent>
-                            <MListItemTitle>@user.UserName</MListItemTitle>
-                            <MListItemSubtitle>@user.Memo</MListItemSubtitle>
-                        </MListItemContent>
-                    </MListItem>
-                    <MDivider Inset="true"></MDivider>
-                }
-            }
-        </MList>
-    </MCard>
+                                            <MListItemContent>
+                                                <MListItemTitle Style="font-size: 16px;">@user.UserName</MListItemTitle>
+                                                <MListItemSubtitle Style="font-size: 14px;">@user.Memo</MListItemSubtitle>
+                                            </MListItemContent>
+                                        </MListItem>
+                                    </ActivatorContent>
+                                    <ChildContent>
+                                        @user.Memo
+                                    </ChildContent>
+                                </MTooltip>
+                                <MDivider Inset="true"></MDivider>
+                            }
+                        }
+                    </MList>
+                </MTabItem>
+                <MTabItem Value="1">
+                    <MImage Src="/imgs/apple-music-note.jpg" AspectRatio="1"/>
+                </MTabItem>
+                <MTabItem Value="2">
+                    <MImage Src="/imgs/book.png" AspectRatio="1"/>
+                </MTabItem>
+                <MTabItem Value="3">
+                    <MImage Src="/imgs/panda.jpg" AspectRatio="1"/>
+                </MTabItem>
+            </MTabsItems>
+        </MCard>
+    </MMain>
     <!--人物列表结束-->
-    
+
     <!--状态栏开始-->
-    <MBottomNavigation @bind-Value="_toolBarButtonIndex" BackgroundColor="@StatusBarButtonColors" Dark Shift>
+    <MBottomNavigation App @bind-Value="_toolBarButtonIndex" BackgroundColor="@StatusBarButtonColors" Dark Shift>
         <MButton>
-            <span>视频</span>
-            <MIcon>mdi-television-play</MIcon>
+            <span>聊天</span>
+            <MIcon>mdi-chat</MIcon>
         </MButton>
 
         <MButton>
@@ -105,13 +122,13 @@
                             Class="mt-6"
                             Text
                             Color="success"
-                                 OnClick="()=>CloseSheet(true)">
+                            OnClick="() => CloseSheet(true)">
                             和 @_selectedUser?.UserName 切磋
                         </MButton>
                         <MButton Class="mt-6"
                                  Text
                                  Color="error"
-                                 OnClick="()=>CloseSheet(false)">
+                                 OnClick="() => CloseSheet(false)">
                             算了，我怕了
                         </MButton>
                     </MCol>
@@ -122,6 +139,6 @@
             </ChildContent>
         </MBottomSheet>
     </div>
-    
+
     <!--底部工作表结束-->
 </MApp>

@@ -12,7 +12,7 @@ public partial class MainView
     private User? _selectedUser = null;
 
     // 点击的状态栏按钮索引
-    StringNumber _toolBarButtonIndex = 1;
+    StringNumber _toolBarButtonIndex = 0;
 
     // 状态栏按钮颜色
     string StatusBarButtonColors
