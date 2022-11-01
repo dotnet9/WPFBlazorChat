@@ -72,8 +72,14 @@ public class WindowService : IWindowService
         return false;
     }
 
-    public void Close()
+    public void Close(bool allWindow = false)
     {
+        if (allWindow)
+        {
+            Application.Current?.Shutdown();
+            return;
+        }
+
         var window = GetActiveWindow();
         if (window != null)
         {

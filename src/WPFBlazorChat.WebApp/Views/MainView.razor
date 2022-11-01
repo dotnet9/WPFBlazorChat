@@ -140,7 +140,7 @@
               Title="关闭窗体"
               Type="AlertTypes.Warning"
               OnCancel="() => _showComfirmDialog = false"
-              OnOk="WindowService.Close">
+              OnOk="() => WindowService.Close(true)">
         您确认关闭吗？没事，待会儿再打开就是!
     </PConfirm>
     <!--确认对话框结束-->

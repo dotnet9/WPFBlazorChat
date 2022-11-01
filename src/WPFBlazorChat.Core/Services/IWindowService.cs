@@ -8,5 +8,5 @@ public interface IWindowService
     void Minimize();
     void Maximize();
     bool IsMaximized();
-    void Close();
+    void Close(bool allWindow = false);
 }

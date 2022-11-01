@@ -15,10 +15,11 @@
                     Label="搜索"
                     Outlined
                     Dense
-                    required></MTextField>
+                    required>
+        </MTextField>
         <MAppBarTitle>Title</MAppBarTitle>
         <MSpacer></MSpacer>
-        
+
         <MButton Icon OnClick="WindowService.Minimize">
             <MIcon>mdi-window-minimize</MIcon>
         </MButton>
@@ -32,7 +33,7 @@
                 <MIcon>mdi-window-maximize</MIcon>
             }
         </MButton>
-        <MButton Icon OnClick="WindowService.Close">
+        <MButton Icon OnClick="() => WindowService.Close()">
             <MIcon>mdi-close</MIcon>
         </MButton>
     </MAppBar>

@@ -29,7 +29,7 @@ public class WindowService: IWindowService
         return true;
     }
 
-    public void Close()
+    public void Close(bool allWindow)
     {
     }
 }
