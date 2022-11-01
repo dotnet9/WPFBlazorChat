@@ -12,7 +12,7 @@ https://learn.microsoft.com/zh-cn/aspnet/core/blazor/hybrid/tutorials/wpf?view=a
 
 **用户列表窗口**
 
-![用户列表](./docs/1-main-window.png)
+![用户列表](./docs/1-main-window.gif)
 
 **聊天窗口**
 
