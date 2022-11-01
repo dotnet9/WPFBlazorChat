@@ -17,7 +17,7 @@ public class WindowService : IWindowService
     {
         DispatcherTimer dispatcherTimer = new();
         dispatcherTimer.Tick += UpdateWindowPos;
-        dispatcherTimer.Interval = TimeSpan.FromMicroseconds(17);
+        dispatcherTimer.Interval = TimeSpan.FromMilliseconds(17);
         dispatcherTimer.Start();
     }
 

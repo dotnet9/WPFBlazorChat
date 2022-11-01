@@ -1,27 +1,22 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-  </PropertyGroup>
-
-
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.2.22476.2" />
-    <PackageReference Include="Masa.Blazor" Version="0.6.0-rc.9" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\WPFBlazorChat.Shared\WPFBlazorChat.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0'))">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
+	</ItemGroup>
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0'))">
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.2.22476.2" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Masa.Blazor" Version="0.6.0-rc.9" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\WPFBlazorChat.Shared\WPFBlazorChat.Shared.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
 
 </Project>

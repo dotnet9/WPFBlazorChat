@@ -104,7 +104,7 @@ public class Messenger : IMessenger
                         Task.Run(() => { item.ExecuteWithObject(message); });
                         break;
                     case ThreadOption.UiThread:
-                        SynchronizationContext.Current.Post(_ => { item.ExecuteWithObject(message); }, null);
+                        SynchronizationContext.Current!.Post(_ => { item.ExecuteWithObject(message); }, null);
                         break;
                     default:
                         item.ExecuteWithObject(message);
