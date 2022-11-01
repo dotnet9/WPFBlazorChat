@@ -14,11 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.Core", "WPFBlazorChat.Core\WPFBlazorChat.Core.csproj", "{89021DA7-85A9-48B1-9802-B5A71CB8ADD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFBlazorChat.Shared", "WPFBlazorChat.Shared\WPFBlazorChat.Shared.csproj", "{931CFEE6-37FF-4B9B-A21D-35B43C9C7840}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.Shared", "WPFBlazorChat.Shared\WPFBlazorChat.Shared.csproj", "{931CFEE6-37FF-4B9B-A21D-35B43C9C7840}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPFBlazorChat.WebApp", "WPFBlazorChat.WebApp\WPFBlazorChat.WebApp.csproj", "{97BBED5C-E63D-44A6-8BC7-08DCE88C204A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.WebApp", "WPFBlazorChat.WebApp\WPFBlazorChat.WebApp.csproj", "{97BBED5C-E63D-44A6-8BC7-08DCE88C204A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorChat.BlazorServer", "BlazorChat.BlazorServer\BlazorChat.BlazorServer.csproj", "{ED8E6DCF-5FB6-47EF-9ED1-EBA03AE98B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorChat.BlazorServer", "BlazorChat.BlazorServer\BlazorChat.BlazorServer.csproj", "{ED8E6DCF-5FB6-47EF-9ED1-EBA03AE98B7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

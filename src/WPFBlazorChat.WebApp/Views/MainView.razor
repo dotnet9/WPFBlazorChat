@@ -7,7 +7,11 @@
 <MApp Dark>
 
     <!--标题栏开始-->
-    <MAppBar Color="deep-purple accent-4" Style="cursor: default" App Dense @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
+    <MAppBar Color="deep-purple accent-4"
+             Style="cursor: default"
+             App Dense
+             @onmouseup="WindowService.StopMove"
+             @onmousedown="WindowService.StartMove">
         <MAvatar Size="35" Class="ml-0 mr-5">
             <MImage Src="https://dotnet9.com/images/logo.png">
             </MImage>
@@ -78,7 +82,7 @@
                     <MImage Src="/imgs/book.png"/>
                 </MTabItem>
                 <MTabItem Value="3">
-                    <MImage Src="/imgs/meitu.png"/>
+                    <PictureView/>
                 </MTabItem>
             </MTabsItems>
         </MCard>

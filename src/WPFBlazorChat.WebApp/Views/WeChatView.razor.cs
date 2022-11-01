@@ -1,4 +1,5 @@
 ﻿using BlazorComponent;
+using Microsoft.AspNetCore.Components.Web;
 using WPFBlazorChat.Core.Messagers;
 using WPFBlazorChat.Shared.Messages;
 using WPFBlazorChat.Shared.Models;
@@ -47,9 +48,9 @@ public partial class WeChatView
         });
     }
 
-    void SendMsg()
+    void SendMsg(KeyboardEventArgs args)
     {
-        if (string.IsNullOrWhiteSpace(_chatMsg))
+        if (args.Key != "Enter" || string.IsNullOrWhiteSpace(_chatMsg))
         {
             return;
         }

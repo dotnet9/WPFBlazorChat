@@ -8,16 +8,13 @@
 
 <MApp>
     <!--标题栏开始-->
-    <MAppBar App @onmousedown="WindowService.StartMove" @onmouseup="WindowService.StopMove" @ondblclick="WindowService.Maximize"
-             ElevateOnScroll Color="white" Dense Absolute ScrollTarget="#scrolling-sheet-2">
-        <MTextField @bind-Value="_searchKey"
-                    Counter="10"
-                    Label="搜索"
-                    Outlined
-                    Dense
-                    required>
-        </MTextField>
-        <MAppBarTitle>Title</MAppBarTitle>
+    <MAppBar App @onmousedown="WindowService.StartMove"
+             @onmouseup="WindowService.StopMove"
+             @ondblclick="WindowService.Maximize"
+             ElevateOnScroll Color="white"
+             Dense
+             ScrollTarget="#scrolling-sheet-2">
+
         <MSpacer></MSpacer>
 
         <MButton Icon OnClick="WindowService.Minimize">
@@ -52,7 +49,6 @@
                 <MIcon>mdi-chevron-left</MIcon>
             </MButton>
         </MListItem>
-
         <MDivider></MDivider>
 
         <MList Dense>
@@ -72,34 +68,35 @@
     </MNavigationDrawer>
     <!--左侧快捷菜单结束-->
 
-    <MMain App>
+    <MMain>
         <MRow>
-            <MDivider Vertical></MDivider>
-
             <!--中间好友列表（群）开始-->
             <MCol Cols="3">
-                <MList ThreeLine>
-                    @if (_users is {Count: > 0})
-                    {
-                        @foreach (var user in _users)
-                        {
-                            if (user.Id == CurrentUser.Id)
-                            {
-                                continue;
-                            }
-                            <MListItem OnClick="() => ShowUser(user)">
-                                <MListItemAvatar>
-                                    <MImage Src="@user.Avatar"></MImage>
-                                </MListItemAvatar>
+                <MTextField @bind-Value="_searchKey"
+                            Label="搜索"
+                            Outlined
+                            Dense
+                            Class="ml-1">
+                </MTextField>
+                    <MList ThreeLine Dense>
 
-                                <MListItemContent>
-                                    <MListItemTitle>@(user.UserName)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11:42 pm</MListItemTitle>
-                                    <MListItemSubtitle>待会儿吃？</MListItemSubtitle>
-                                </MListItemContent>
-                            </MListItem>
+                        @if (_users is {Count: > 0})
+                        {
+                            @foreach (var user in _users.Where(user => user.Id != CurrentUser.Id))
+                            {
+                                <MListItem Dense OnClick="@(() => ShowUser(user))" Class="my-n5 py-n5">
+                                    <MListItemAvatar>
+                                        <MImage Src="@user.Avatar"></MImage>
+                                    </MListItemAvatar>
+
+                                    <MListItemContent>
+                                        <MListItemTitle Style="font-size: 14px;">@(user.UserName)11:42 pm</MListItemTitle>
+                                        <MListItemSubtitle Style="font-size: 12px;">待会儿吃？</MListItemSubtitle>
+                                    </MListItemContent>
+                                </MListItem>
+                            }
                         }
-                    }
-                </MList>
+                    </MList>
             </MCol>
             <!--中间好友列表（群）结束-->
 
@@ -120,7 +117,7 @@
                 <MRow>
                     <MTextarea
                         RowHeight="20"
-                        Rows="18" Class="mx-4"
+                        Rows="12" Class="mx-4"
                         Name="input-7-1"
                         @bind-Value="_receiveMsg">
                     </MTextarea>
@@ -130,7 +127,7 @@
                     <MTextarea AppendIcon="mdi-microphone"
                                Class="mx-4"
                                RowHeight="20"
-                               Rows="5"
+                               Rows="5" OnKeyUp="SendMsg"
                                HideDetails="@true"
                                Label="请输入聊天内容"
                                @bind-Value="_chatMsg">
@@ -140,4 +137,9 @@
             <!--右侧聊天区结束-->
         </MRow>
     </MMain>
+    <MFooter App Height="45" Inset>
+        <MCol Style="text-align: center; line-height: 10px;" Cols="12">
+            2019~@DateTime.Now.Year - <strong>https://dotnet9.com</strong>
+        </MCol>
+    </MFooter>
 </MApp>
