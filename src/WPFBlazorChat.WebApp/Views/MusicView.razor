@@ -1,0 +1,82 @@
+﻿<MContainer>
+    <MRow Dense>
+
+        <MCol Cols=12>
+            <MCard Color="#385F73" Dark>
+                <MCardText Class="text-h5">Unlimited music now</MCardText>
+                <MCardSubtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</MCardSubtitle>
+                <MCardActions>
+                    <MButton Text>
+                        Listen Now
+                    </MButton>
+                </MCardActions>
+            </MCard>
+        </MCol>
+        @for (var i = 0; i < _cards.Length; i++)
+        {
+            var card = _cards[i];
+
+            <MCol key="@i" Cols=12>
+                <MCard Color="@card.Color" Dark>
+                    <div class="d-flex flex-no-wrap justify-space-between">
+                        <div>
+
+                            <MCardTitle Class="text-h5">
+                                @card.Title
+                            </MCardTitle>
+
+                            <MCardSubtitle>
+                                @card.Artist
+                            </MCardSubtitle>
+
+                            <MCardActions>
+                                @if (card.Artist == "Ellie Goulding")
+                                {
+                                    <MButton Class="ml-2 mt-3" Fab Icon Height=40 Right Width=40>
+                                        <MIcon>mdi-play</MIcon>
+                                    </MButton>
+                                }
+                                else
+                                {
+                                    <MButton Class="ml-2 mt-5" Outlined Rounded Small>START RADIO</MButton>
+                                }
+                            </MCardActions>
+                        </div>
+                        <MAvatar Class="ma-3" Size=125 Tile>
+                            <MImage Src="@card.Src"></MImage>
+                        </MAvatar>
+                    </div>
+                </MCard>
+            </MCol>
+        }
+
+    </MRow>
+</MContainer>
+
+@code {
+    Card[] _cards = new[]
+    {
+        new Card
+        {
+            Color="#1F7087",
+            Src="https://cdn.masastack.com/stack/images/website/masa-blazor/cards/foster.jpg",
+            Title="Supermodel",
+            Artist="Foster the People"
+        },
+        new Card
+        {
+            Color="#952175",
+            Src="https://cdn.masastack.com/stack/images/website/masa-blazor/cards/halcyon.png",
+            Title="Halcyon Days",
+            Artist="Ellie Goulding"
+        }
+    };
+
+    class Card
+    {
+        public string Color { get; set; }
+        public string Src { get; set; }
+        public string Title { get; set; }
+        public string Artist { get; set; }
+    }
+}

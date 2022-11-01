@@ -7,8 +7,6 @@ namespace WPFBlazorChat.WebApp.Views;
 
 public partial class MainView
 {
-    // 用户列表
-    private List<User>? _users = null;
     private User? _selectedUser = null;
 
     // 确认对话框
@@ -36,14 +34,18 @@ public partial class MainView
     protected override Task OnInitializedAsync()
     {
         WindowService.Init();
-        _users = UserService.GetUsers();
+        Messenger.Default.Subscribe<ChoiceUserMessage>(this, SelectUser, ThreadOption.UiThread, null);
         return base.OnInitializedAsync();
     }
 
-    protected void SelectUser(User user)
+    protected void SelectUser(ChoiceUserMessage msg)
     {
-        _selectedUser = user;
-        _isOpenSheet = true;
+        InvokeAsync(() =>
+        {
+            _selectedUser = msg.User;
+            _isOpenSheet = true;
+            this.StateHasChanged();
+        });
     }
 
     private void CloseSheet(bool needChat = true)

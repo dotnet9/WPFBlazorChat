@@ -48,38 +48,13 @@
         <MCard Class="mx-auto rounded-lg">
             <MTabsItems @bind-Value="_toolBarButtonIndex">
                 <MTabItem Value="0">
-                    <MList ThreeLine Class="rounded-lg">
-                        @if (_users is {Count:>0})
-                        {
-                            @foreach (var user in _users)
-                            {
-                                <MTooltip Top>
-                                    <ActivatorContent>
-                                        <MListItem OnClick="() => SelectUser(user)">
-                                            <MListItemAvatar>
-                                                <MImage Src="@user.Avatar"></MImage>
-                                            </MListItemAvatar>
-
-                                            <MListItemContent>
-                                                <MListItemTitle Style="font-size: 16px;">@user.UserName</MListItemTitle>
-                                                <MListItemSubtitle Style="font-size: 14px;">@user.Memo</MListItemSubtitle>
-                                            </MListItemContent>
-                                        </MListItem>
-                                    </ActivatorContent>
-                                    <ChildContent>
-                                        @user.Memo
-                                    </ChildContent>
-                                </MTooltip>
-                                <MDivider Inset="true"></MDivider>
-                            }
-                        }
-                    </MList>
+                    <UserListView />
                 </MTabItem>
                 <MTabItem Value="1">
-                    <MImage Src="/imgs/music.png"/>
+                    <MusicView />
                 </MTabItem>
                 <MTabItem Value="2">
-                    <MImage Src="/imgs/book.png"/>
+                    <WeatherView />
                 </MTabItem>
                 <MTabItem Value="3">
                     <PictureView/>
@@ -102,8 +77,8 @@
         </MButton>
 
         <MButton>
-            <span>书籍</span>
-            <MIcon>mdi-book</MIcon>
+            <span>天气</span>
+            <MIcon>mdi-white-balance-sunny</MIcon>
         </MButton>
 
         <MButton>

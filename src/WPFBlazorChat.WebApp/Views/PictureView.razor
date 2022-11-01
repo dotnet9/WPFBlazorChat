@@ -1,13 +1,13 @@
 ﻿<MRow>
-    <MCol Cols="12" Sm="6" OffsetSm="3">
+    <MCol>
         <MCard>
             <MSubheader>男性友人</MSubheader>
             <MContainer Fluid>
                 <MRow>
-                    @for (var i = 1; i <= 6; i++)
+                    @for (var i = 1; i <= Random.Shared.Next(18,120); i++)
                     {
                         var index = i + 20;
-                        <MCol Cols="4">
+                        <MCol Xl="1" Lg="2" Cols="4">
                             <MImage Src="@($"https://randomuser.me/api/portraits/men/{index}.jpg")" Alt="lorem" Class="image" Height="@("100%")" Width="@("100%")"></MImage>
                         </MCol>
                     }
@@ -17,10 +17,10 @@
             <MSubheader>女性友人</MSubheader>
             <MContainer Fluid>
                 <MRow>
-                    @for (var i = 1; i <= 6; i++)
+                    @for (var i = 1; i <= Random.Shared.Next(18, 120); i++)
                     {
                         var index = i + 5;
-                        <MCol Cols="4">
+                        <MCol Xl="1" Lg="2" Cols="4">
                             <MImage Src="@($"https://randomuser.me/api/portraits/women/{index}.jpg")" Alt="lorem" Class="image" Height="@("100%")" Width="@("100%")"></MImage>
                         </MCol>
                     }

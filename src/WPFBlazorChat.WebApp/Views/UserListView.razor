@@ -1,0 +1,49 @@
+﻿@using WPFBlazorChat.Shared.Models
+@using WPFBlazorChat.Shared.Services
+@using WPFBlazorChat.Shared.Messages
+@using WPFBlazorChat.Core.Messagers
+@inject IUserService UserService
+<MList ThreeLine Class="rounded-lg">
+    @if (_users is {Count:>0})
+    {
+        @foreach (var user in _users)
+        {
+            <MTooltip Top>
+                <ActivatorContent>
+                    <MListItem OnClick="() => SelectUser(user)">
+                        <MListItemAvatar>
+                            <MImage Src="@user.Avatar"></MImage>
+                        </MListItemAvatar>
+
+                        <MListItemContent>
+                            <MListItemTitle Style="font-size: 16px;">@user.UserName</MListItemTitle>
+                            <MListItemSubtitle Style="font-size: 14px;">@user.Memo</MListItemSubtitle>
+                        </MListItemContent>
+                    </MListItem>
+                </ActivatorContent>
+                <ChildContent>
+                    @user.Memo
+                </ChildContent>
+            </MTooltip>
+            <MDivider Inset="true"></MDivider>
+        }
+    }
+</MList>
+
+@code {
+    // 用户列表
+    private List<User>? _users = null;
+
+    protected override Task OnInitializedAsync()
+    {
+        _users = UserService.GetUsers();
+        return base.OnInitializedAsync();
+    }
+
+
+    protected void SelectUser(User user)
+    {
+        Messenger.Default.Publish(this, new ChoiceUserMessage(this, user!));
+    }
+
+}
