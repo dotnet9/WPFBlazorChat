@@ -5,79 +5,79 @@
 @inject IWindowService WindowService
 @inject IUserService UserService
 
+<MErrorHandler>
+    <MApp>
+        <!--标题栏开始-->
+        <MAppBar App @onmousedown="WindowService.StartMove"
+                 @onmouseup="WindowService.StopMove"
+                 @ondblclick="WindowService.Maximize"
+                 ElevateOnScroll Color="white"
+                 Dense
+                 ScrollTarget="#scrolling-sheet-2">
 
-<MApp>
-    <!--标题栏开始-->
-    <MAppBar App @onmousedown="WindowService.StartMove"
-             @onmouseup="WindowService.StopMove"
-             @ondblclick="WindowService.Maximize"
-             ElevateOnScroll Color="white"
-             Dense
-             ScrollTarget="#scrolling-sheet-2">
+            <MSpacer></MSpacer>
 
-        <MSpacer></MSpacer>
-
-        <MButton Icon OnClick="WindowService.Minimize">
-            <MIcon>mdi-window-minimize</MIcon>
-        </MButton>
-        <MButton Icon OnClick="WindowService.Maximize">
-            @if (WindowService.IsMaximized())
-            {
-                <MIcon>mdi-window-restore</MIcon>
-            }
-            else
-            {
-                <MIcon>mdi-window-maximize</MIcon>
-            }
-        </MButton>
-        <MButton Icon OnClick="() => WindowService.Close()">
-            <MIcon>mdi-close</MIcon>
-        </MButton>
-    </MAppBar>
-    <!--标题栏结束-->
-
-    <!--左侧快捷菜单开始-->
-    <MNavigationDrawer App @bind-Value="_drawer" @bind-MiniVariant="_miniDrawer" Permanent Dark>
-        <MListItem Class="px-2">
-            <MListItemAvatar Size="40">
-                <MImage Src="@CurrentUser.Avatar"></MImage>
-            </MListItemAvatar>
-
-            <MListItemTitle>@CurrentUser.UserName</MListItemTitle>
-
-            <MButton Icon OnClick="() => _miniDrawer = !_miniDrawer">
-                <MIcon>mdi-chevron-left</MIcon>
+            <MButton Icon OnClick="WindowService.Minimize">
+                <MIcon>mdi-window-minimize</MIcon>
             </MButton>
-        </MListItem>
-        <MDivider></MDivider>
+            <MButton Icon OnClick="WindowService.Maximize">
+                @if (WindowService.IsMaximized())
+                {
+                    <MIcon>mdi-window-restore</MIcon>
+                }
+                else
+                {
+                    <MIcon>mdi-window-maximize</MIcon>
+                }
+            </MButton>
+            <MButton Icon OnClick="() => WindowService.Close()">
+                <MIcon>mdi-close</MIcon>
+            </MButton>
+        </MAppBar>
+        <!--标题栏结束-->
 
-        <MList Dense>
-            @foreach (var item in quickMenus)
-            {
-                <MListItem Link>
-                    <MListItemIcon>
-                        <MIcon>@item.icon</MIcon>
-                    </MListItemIcon>
+        <!--左侧快捷菜单开始-->
+        <MNavigationDrawer App @bind-Value="_drawer" @bind-MiniVariant="_miniDrawer" Permanent Dark>
+            <MListItem Class="px-2">
+                <MListItemAvatar Size="40">
+                    <MImage Src="@CurrentUser.Avatar"></MImage>
+                </MListItemAvatar>
 
-                    <MListItemContent>
-                        <MListItemTitle>@item.text</MListItemTitle>
-                    </MListItemContent>
-                </MListItem>
-            }
-        </MList>
-    </MNavigationDrawer>
-    <!--左侧快捷菜单结束-->
+                <MListItemTitle>@CurrentUser.UserName</MListItemTitle>
 
-    <MMain>
-        <MRow>
-            <!--中间好友列表（群）开始-->
-            <MCol Cols="3">
-                <MTextField @bind-Value="_searchKey"
-                            Label="搜索"
-                            Outlined
-                            Dense
-                            Class="ml-1">
-                </MTextField>
+                <MButton Icon OnClick="() => _miniDrawer = !_miniDrawer">
+                    <MIcon>mdi-chevron-left</MIcon>
+                </MButton>
+            </MListItem>
+            <MDivider></MDivider>
+
+            <MList Dense>
+                @foreach (var item in quickMenus)
+                {
+                    <MListItem Link>
+                        <MListItemIcon>
+                            <MIcon>@item.icon</MIcon>
+                        </MListItemIcon>
+
+                        <MListItemContent>
+                            <MListItemTitle>@item.text</MListItemTitle>
+                        </MListItemContent>
+                    </MListItem>
+                }
+            </MList>
+        </MNavigationDrawer>
+        <!--左侧快捷菜单结束-->
+
+        <MMain>
+            <MRow>
+                <!--中间好友列表（群）开始-->
+                <MCol Cols="3">
+                    <MTextField @bind-Value="_searchKey"
+                                Label="搜索"
+                                Outlined
+                                Dense
+                                Class="ml-1">
+                    </MTextField>
                     <MList ThreeLine Dense>
 
                         @if (_users is {Count: > 0})
@@ -97,49 +97,50 @@
                             }
                         }
                     </MList>
+                </MCol>
+                <!--中间好友列表（群）结束-->
+
+                <MDivider Vertical></MDivider>
+
+                <!--右侧聊天区开始-->
+                <MCol Cols="21">
+                    <MRow>
+                        <MToolbar Flat>
+                            <ChildContent>
+                                <MToolbarTitle>@_checkedUser?.UserName</MToolbarTitle>
+
+                                <MSpacer></MSpacer>
+                            </ChildContent>
+                        </MToolbar>
+                    </MRow>
+                    <MDivider Inset="true"></MDivider>
+                    <MRow>
+                        <MTextarea
+                            RowHeight="20"
+                            Rows="12" Class="mx-4"
+                            Name="input-7-1"
+                            @bind-Value="_receiveMsg">
+                        </MTextarea>
+                    </MRow>
+                    <MDivider Inset="true"></MDivider>
+                    <MRow>
+                        <MTextarea AppendIcon="mdi-microphone"
+                                   Class="mx-4"
+                                   RowHeight="20"
+                                   Rows="5" OnKeyUp="SendMsg"
+                                   HideDetails="@true"
+                                   Label="请输入聊天内容"
+                                   @bind-Value="_chatMsg">
+                        </MTextarea>
+                    </MRow>
+                </MCol>
+                <!--右侧聊天区结束-->
+            </MRow>
+        </MMain>
+        <MFooter App Height="45" Inset>
+            <MCol Style="text-align: center; line-height: 10px;" Cols="12">
+                2019~@DateTime.Now.Year - <strong>https://dotnet9.com</strong>
             </MCol>
-            <!--中间好友列表（群）结束-->
-
-            <MDivider Vertical></MDivider>
-
-            <!--右侧聊天区开始-->
-            <MCol Cols="21">
-                <MRow>
-                    <MToolbar Flat>
-                        <ChildContent>
-                            <MToolbarTitle>@_checkedUser?.UserName</MToolbarTitle>
-
-                            <MSpacer></MSpacer>
-                        </ChildContent>
-                    </MToolbar>
-                </MRow>
-                <MDivider Inset="true"></MDivider>
-                <MRow>
-                    <MTextarea
-                        RowHeight="20"
-                        Rows="12" Class="mx-4"
-                        Name="input-7-1"
-                        @bind-Value="_receiveMsg">
-                    </MTextarea>
-                </MRow>
-                <MDivider Inset="true"></MDivider>
-                <MRow>
-                    <MTextarea AppendIcon="mdi-microphone"
-                               Class="mx-4"
-                               RowHeight="20"
-                               Rows="5" OnKeyUp="SendMsg"
-                               HideDetails="@true"
-                               Label="请输入聊天内容"
-                               @bind-Value="_chatMsg">
-                    </MTextarea>
-                </MRow>
-            </MCol>
-            <!--右侧聊天区结束-->
-        </MRow>
-    </MMain>
-    <MFooter App Height="45" Inset>
-        <MCol Style="text-align: center; line-height: 10px;" Cols="12">
-            2019~@DateTime.Now.Year - <strong>https://dotnet9.com</strong>
-        </MCol>
-    </MFooter>
-</MApp>
+        </MFooter>
+    </MApp>
+</MErrorHandler>

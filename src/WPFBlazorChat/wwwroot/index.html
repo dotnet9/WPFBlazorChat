@@ -21,8 +21,13 @@
 <div id="app">Loading...</div>
 
 <div id="blazor-error-ui">
-    An unhandled error has occurred.
-    <a href="" class="reload">Reload</a>
+    <environment include="Staging,Production">
+        发生了错误。 在重新加载之前，此应用程序可能不再响应。
+    </environment>
+    <environment include="Development">
+        发生了未处理的异常。 有关详细信息，请参阅浏览器开发工具(dev tools)。
+    </environment>
+    <a href="" class="reload">重新加载</a>
     <a class="dismiss">🗙</a>
 </div>
 <script src="_framework/blazor.webview.js"></script>

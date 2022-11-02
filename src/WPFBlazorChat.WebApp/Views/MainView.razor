@@ -4,123 +4,125 @@
 @inject IWindowService WindowService
 @inject IUserService UserService
 
-<MApp Dark>
+<MErrorHandler>
+    <MApp Dark>
 
-    <!--标题栏开始-->
-    <MAppBar Color="deep-purple accent-4"
-             Style="cursor: default"
-             App Dense
-             @onmouseup="WindowService.StopMove"
-             @onmousedown="WindowService.StartMove">
-        <MAvatar Size="35" Class="ml-0 mr-5">
-            <MImage Src="https://dotnet9.com/images/logo.png">
-            </MImage>
-        </MAvatar>
-        <MToolbarTitle Style="font-size: 16px;">WPF + Blazor</MToolbarTitle>
-        <MSpacer></MSpacer>
+        <!--标题栏开始-->
+        <MAppBar Color="deep-purple accent-4"
+                 Style="cursor: default"
+                 App Dense
+                 @onmouseup="WindowService.StopMove"
+                 @onmousedown="WindowService.StartMove">
+            <MAvatar Size="35" Class="ml-0 mr-5">
+                <MImage Src="https://dotnet9.com/images/logo.png">
+                </MImage>
+            </MAvatar>
+            <MToolbarTitle Style="font-size: 16px;">WPF + Blazor</MToolbarTitle>
+            <MSpacer></MSpacer>
 
-        <MMenu Left
-               Bottom>
-            <ActivatorContent>
-                <MButton Icon @attributes="@context.Attrs">
-                    <MIcon>mdi-dots-vertical</MIcon>
-                </MButton>
-            </ActivatorContent>
-            <ChildContent>
-                <MList>
-                    <MListItem @key="1" Href="https://dotnet9.com">
-                        <MListItemTitle>网站 Dotnet9.com</MListItemTitle>
-                    </MListItem>
-                    <MListItem @key="2" Href="https://img1.dotnet9.com/site/wechatpublic.jpg">
-                        <MListItemTitle>公众号 Dotnet9</MListItemTitle>
-                    </MListItem>
-                </MList>
-            </ChildContent>
-        </MMenu>
-        <MButton Icon OnClick="() => this._showComfirmDialog = true">
-            <MIcon>mdi-close</MIcon>
-        </MButton>
-    </MAppBar>
-    <!--标题栏结束-->
+            <MMenu Left
+                   Bottom>
+                <ActivatorContent>
+                    <MButton Icon @attributes="@context.Attrs">
+                        <MIcon>mdi-dots-vertical</MIcon>
+                    </MButton>
+                </ActivatorContent>
+                <ChildContent>
+                    <MList>
+                        <MListItem @key="1" Href="https://dotnet9.com">
+                            <MListItemTitle>网站 Dotnet9.com</MListItemTitle>
+                        </MListItem>
+                        <MListItem @key="2" Href="https://img1.dotnet9.com/site/wechatpublic.jpg">
+                            <MListItemTitle>公众号 Dotnet9</MListItemTitle>
+                        </MListItem>
+                    </MList>
+                </ChildContent>
+            </MMenu>
+            <MButton Icon OnClick="() => this._showComfirmDialog = true">
+                <MIcon>mdi-close</MIcon>
+            </MButton>
+        </MAppBar>
+        <!--标题栏结束-->
 
-    <!--人物列表开始-->
-    <MMain>
-        <MCard Class="mx-auto rounded-lg">
-            <MTabsItems @bind-Value="_toolBarButtonIndex">
-                <MTabItem Value="0">
-                    <UserListView />
-                </MTabItem>
-                <MTabItem Value="1">
-                    <MusicView />
-                </MTabItem>
-                <MTabItem Value="2">
-                    <WeatherView />
-                </MTabItem>
-                <MTabItem Value="3">
-                    <PictureView/>
-                </MTabItem>
-            </MTabsItems>
-        </MCard>
-    </MMain>
-    <!--人物列表结束-->
+        <!--人物列表开始-->
+        <MMain>
+            <MCard Class="mx-auto rounded-lg">
+                <MTabsItems @bind-Value="_toolBarButtonIndex">
+                    <MTabItem Value="0">
+                        <UserListView/>
+                    </MTabItem>
+                    <MTabItem Value="1">
+                        <MusicView/>
+                    </MTabItem>
+                    <MTabItem Value="2">
+                        <WeatherView/>
+                    </MTabItem>
+                    <MTabItem Value="3">
+                        <PictureView/>
+                    </MTabItem>
+                </MTabsItems>
+            </MCard>
+        </MMain>
+        <!--人物列表结束-->
 
-    <!--状态栏开始-->
-    <MBottomNavigation App Dense @bind-Value="_toolBarButtonIndex" BackgroundColor="@StatusBarButtonColors" Dark Shift>
-        <MButton>
-            <span>聊天</span>
-            <MIcon>mdi-chat</MIcon>
-        </MButton>
+        <!--状态栏开始-->
+        <MBottomNavigation App Dense @bind-Value="_toolBarButtonIndex" BackgroundColor="@StatusBarButtonColors" Dark Shift>
+            <MButton>
+                <span>聊天</span>
+                <MIcon>mdi-chat</MIcon>
+            </MButton>
 
-        <MButton>
-            <span>音乐</span>
-            <MIcon>mdi-music-note</MIcon>
-        </MButton>
+            <MButton>
+                <span>音乐</span>
+                <MIcon>mdi-music-note</MIcon>
+            </MButton>
 
-        <MButton>
-            <span>天气</span>
-            <MIcon>mdi-white-balance-sunny</MIcon>
-        </MButton>
+            <MButton>
+                <span>天气</span>
+                <MIcon>mdi-white-balance-sunny</MIcon>
+            </MButton>
 
-        <MButton>
-            <span>图片</span>
-            <MIcon>mdi-image</MIcon>
-        </MButton>
-    </MBottomNavigation>
-    <!--状态栏结束-->
+            <MButton>
+                <span>图片</span>
+                <MIcon>mdi-image</MIcon>
+            </MButton>
+        </MBottomNavigation>
+        <!--状态栏结束-->
 
-    <!--底部工作表开始-->
-    <div class="text-center">
-        <MBottomSheet
-            @bind-Value="_isOpenSheet"
-            Persistent>
-            <ChildContent>
-                <MSheet
-                    Class="text-center"
-                    Height="200">
-                    <MCol>
-                        <MButton Class="mt-3" Color="success" OnClick="() => CloseSheet(true)">
-                            撩 他/她
-                        </MButton>
-                        <MButton Class="mt-3" Text Color="error" OnClick="() => CloseSheet(false)">
-                            算了，溜
-                        </MButton>
-                    </MCol>
-                    <div class="py-3" Style="font-size: 14px;">
-                        @_selectedUser?.Memo
-                    </div>
-                </MSheet>
-            </ChildContent>
-        </MBottomSheet>
-    </div>
-    <!--底部工作表结束-->
+        <!--底部工作表开始-->
+        <div class="text-center">
+            <MBottomSheet
+                @bind-Value="_isOpenSheet"
+                Persistent>
+                <ChildContent>
+                    <MSheet
+                        Class="text-center"
+                        Height="200">
+                        <MCol>
+                            <MButton Class="mt-3" Color="success" OnClick="() => CloseSheet(true)">
+                                撩 他/她
+                            </MButton>
+                            <MButton Class="mt-3" Text Color="error" OnClick="() => CloseSheet(false)">
+                                算了，溜
+                            </MButton>
+                        </MCol>
+                        <div class="py-3" Style="font-size: 14px;">
+                            @_selectedUser?.Memo
+                        </div>
+                    </MSheet>
+                </ChildContent>
+            </MBottomSheet>
+        </div>
+        <!--底部工作表结束-->
 
-    <!--确认对话框开始-->
-    <PConfirm Visible="_showComfirmDialog"
-              Title="关闭窗体"
-              Type="AlertTypes.Warning"
-              OnCancel="() => _showComfirmDialog = false"
-              OnOk="() => WindowService.Close(true)">
-        您确认关闭吗？没事，待会儿再打开就是!
-    </PConfirm>
-    <!--确认对话框结束-->
-</MApp>
+        <!--确认对话框开始-->
+        <PConfirm Visible="_showComfirmDialog"
+                  Title="关闭窗体"
+                  Type="AlertTypes.Warning"
+                  OnCancel="() => _showComfirmDialog = false"
+                  OnOk="() => WindowService.Close(true)">
+            您确认关闭吗？没事，待会儿再打开就是!
+        </PConfirm>
+        <!--确认对话框结束-->
+    </MApp>
+</MErrorHandler>
