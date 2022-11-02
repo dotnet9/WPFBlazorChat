@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<ItemGroup>
-    <ProjectReference Include="..\WPFBlazorChat.WebApp\WPFBlazorChat.WebApp.csproj" />
-  </ItemGroup>
+		<ProjectReference Include="..\WPFBlazorChat.WebApp\WPFBlazorChat.WebApp.csproj" />
+	</ItemGroup>
 
 </Project>
