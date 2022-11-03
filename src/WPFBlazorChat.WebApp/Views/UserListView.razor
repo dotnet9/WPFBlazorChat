@@ -36,7 +36,7 @@
 
     protected override Task OnInitializedAsync()
     {
-        _users = UserService.GetUsers();
+        _users = UserService.GetUsers().Where(x => x.Type != (int)UserType.Group).ToList();
         return base.OnInitializedAsync();
     }
 

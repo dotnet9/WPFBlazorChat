@@ -13,7 +13,7 @@ builder.Services.AddMasaSetup();
 
 builder.Services.AddSingleton<IUserService, UserService>();
 builder.Services.AddSingleton<IWindowService, WindowService>();
-builder.Services.AddSingleton(new User { Id = 2, UserName = "小龙女" });
+builder.Services.AddSingleton(new User { Id = "2", UserName = "小龙女" });
 
 var app = builder.Build();
 

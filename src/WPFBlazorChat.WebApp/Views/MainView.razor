@@ -4,7 +4,7 @@
 @inject IWindowService WindowService
 @inject IUserService UserService
 
-<MErrorHandler OnErrorHandleAsync="OnErrorHandleAsync">
+<MErrorHandler>
     <MApp Dark>
 
         <!--标题栏开始-->
@@ -126,12 +126,3 @@
         <!--确认对话框结束-->
     </MApp>
 </MErrorHandler>
-
-@code
-{
-
-    private async Task OnErrorHandleAsync(Exception arg)
-    {
-        await File.AppendAllTextAsync("error.txt", arg.ToString());
-    }
-}

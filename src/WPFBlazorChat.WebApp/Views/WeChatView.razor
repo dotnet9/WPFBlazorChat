@@ -82,7 +82,7 @@
 
                         @if (_users is {Count: > 0})
                         {
-                            @foreach (var user in _users.Where(user => user.Id != CurrentUser.Id))
+                            @foreach (var user in _users)
                             {
                                 <MListItem Dense OnClick="@(() => ShowUser(user))" Class="my-n5 py-n5">
                                     <MListItemAvatar>

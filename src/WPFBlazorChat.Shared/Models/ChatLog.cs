@@ -1,3 +1,3 @@
 ﻿namespace WPFBlazorChat.Shared.Models;
 
-public record ChatLog(string Sender, string? Recipient, string Message, DateTime SendTime);
+public record ChatLog(User Sender, User Recipient, string Message, DateTime SendTime);

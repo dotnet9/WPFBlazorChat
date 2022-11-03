@@ -4,5 +4,5 @@ namespace WPFBlazorChat.Shared.Services;
 
 public interface IUserService
 {
-    List<User>? GetUsers();
+    List<User> GetUsers();
 }

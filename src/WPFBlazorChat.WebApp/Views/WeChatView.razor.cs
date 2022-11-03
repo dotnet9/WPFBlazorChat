@@ -10,6 +10,7 @@ public partial class WeChatView
 {
     private bool _miniDrawer = true;
     private bool _drawer = true;
+
     private List<(string icon, string text)> quickMenus = new()
     {
         ("mdi-message-text", "消息"),
@@ -27,7 +28,11 @@ public partial class WeChatView
     protected override Task OnInitializedAsync()
     {
         WindowService.Init();
-        _users = UserService.GetUsers();
+
+        // 获取好友，或者包含自己的群组
+        _users = UserService.GetUsers().Where(x => ((x.Type != (int)UserType.Group && x.Id != CurrentUser.Id))
+                                                   || (x.Type == (int)UserType.Group &&
+                                                       x.Members!.Contains(CurrentUser.Id))).ToList();
 
         Messenger.Default.Subscribe<SendChatLogMessage>(this, ReceiveMsg, ThreadOption.UiThread, null);
         return base.OnInitializedAsync();
@@ -40,22 +45,27 @@ public partial class WeChatView
 
     void ReceiveMsg(SendChatLogMessage msg)
     {
-        InvokeAsync(() =>
+        // 发送者为当前窗口所属的用户，或者接收者为当前窗口所属的用户且发送者为选择的用户
+        if (msg.Log.Sender.Id == CurrentUser.Id || msg.Log.Sender.Id == _checkedUser?.Id
+                                                || _checkedUser?.Members?.Contains(msg.Log.Sender.Id) == true)
         {
-            var sender = msg.Log.Sender == CurrentUser.UserName ? "我" : msg.Sender;
-            _receiveMsg += $"{sender}: {msg.Log.SendTime:yyyy-MM-dd HH:mm:ss}\r\n{msg.Log.Message}\r\n";
-            StateHasChanged();
-        });
+            InvokeAsync(() =>
+            {
+                var sender = msg.Log.Sender.Id == CurrentUser.Id ? "我" : msg.Log.Recipient.UserName;
+                _receiveMsg += $"{sender}: {msg.Log.SendTime:yyyy-MM-dd HH:mm:ss}\r\n{msg.Log.Message}\r\n";
+                StateHasChanged();
+            });
+        }
     }
 
     void SendMsg(KeyboardEventArgs args)
     {
-        if (args.Key != "Enter" || string.IsNullOrWhiteSpace(_chatMsg))
+        if (args.Key != "Enter" || string.IsNullOrWhiteSpace(_chatMsg) || _checkedUser == null)
         {
             return;
         }
 
-        var newMsg = new ChatLog(CurrentUser!.UserName!, _checkedUser?.UserName, _chatMsg, DateTime.Now);
+        var newMsg = new ChatLog(CurrentUser!, _checkedUser, _chatMsg, DateTime.Now);
 
         Messenger.Default.Publish(this, new SendChatLogMessage(this, newMsg));
         _chatMsg = string.Empty;
