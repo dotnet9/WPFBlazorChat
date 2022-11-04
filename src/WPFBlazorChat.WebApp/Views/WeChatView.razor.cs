@@ -40,6 +40,7 @@ public partial class WeChatView
 
     void ShowUser(User user)
     {
+        _receiveMsg = string.Empty;
         _checkedUser = user;
     }
 

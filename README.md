@@ -14,18 +14,20 @@ https://learn.microsoft.com/zh-cn/aspnet/core/blazor/hybrid/tutorials/wpf?view=a
 
 ![用户列表](./docs/1-main-window.gif)
 
-**聊天窗口**
-
-![聊天窗口](./docs/2-chat-window.png)
-
-**打开窗口**
+**打开子窗口**
 
 ![打开窗口](./docs/3-open-child-window.gif)
 
+**聊天窗口**
+
+![聊天窗口](./docs/2-chat-window.gif)
+
 **演示发送消息**
 
-![演示发送消息](./docs/4-send-message.gif)
+<video id="video" controls="" preload="none" poster="./docs/4-send-message.png">
+  <source id="mp4" src="./docs/4-send-message.mp4" type="video/mp4">
+</video>
 
 **参考资料**
 
-https://github.com/James231/BlazorDesktopWPF-CustomTitleBar- 窗体拖动：
+- 窗体拖动：https://github.com/James231/BlazorDesktopWPF-CustomTitleBar

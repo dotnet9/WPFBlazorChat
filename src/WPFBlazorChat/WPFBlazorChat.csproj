@@ -9,7 +9,7 @@
         <Content Include="Images\favicon.ico" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Masa.Blazor" Version="0.6.0-rc.9" />
+        <PackageReference Include="Masa.Blazor" Version="0.6.0" />
         <PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
         <PackageReference Include="Simplify.Windows.Forms" Version="1.1.2" />
         <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Condition="$(TargetFramework.StartsWith('net6.0'))" Version="6.0.541" />

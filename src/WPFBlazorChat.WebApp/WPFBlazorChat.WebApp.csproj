@@ -17,7 +17,7 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.2.22476.2" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Masa.Blazor" Version="0.6.0-rc.9" />
+		<PackageReference Include="Masa.Blazor" Version="0.6.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\WPFBlazorChat.Shared\WPFBlazorChat.Shared.csproj" />
