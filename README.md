@@ -24,8 +24,8 @@ https://learn.microsoft.com/zh-cn/aspnet/core/blazor/hybrid/tutorials/wpf?view=a
 
 **演示发送消息**
 
-<video id="video" controls="" preload="none" poster="./docs/4-send-message.png">
-  <source id="mp4" src="./docs/4-send-message.mp4" type="video/mp4">
+<video id="video" controls="" preload="none" poster="https://raw.githubusercontent.com/dotnet9/WPFBlazorChat/main/docs/4-send-message.png">
+  <source id="mp4" src="https://raw.githubusercontent.com/dotnet9/WPFBlazorChat/main/docs/4-send-message.mp4" type="video/mp4">
 </video>
 
 **参考资料**
