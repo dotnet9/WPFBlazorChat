@@ -1,0 +1,1 @@
+在WPF项目中添加Blazor支持，添加微软文档：https://learn.microsoft.com/zh-cn/aspnet/core/blazor/hybrid/tutorials/wpf?view=aspnetcore-7.0
