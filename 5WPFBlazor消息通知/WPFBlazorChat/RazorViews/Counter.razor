@@ -1,0 +1,76 @@
+﻿@using WPFBlazorChat.Services
+
+<MApp>
+
+    <!--新增的Masa.Blazor Tab案例代码开始-->
+    <MCard>
+        <MToolbar Color="cyan" Dark Flat @ondblclick="WindowService.Maximize" @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
+            <MTabs @bind-Value="tab"
+                   AlignWithTitle
+                   SliderColor="yellow">
+                @foreach (var item in items)
+                {
+                    <MTab Value="item">
+                        @item
+                    </MTab>
+                }
+            </MTabs>
+            
+            <div style="flex-grow: 1"></div>
+            <button class="titlebar-btn" onclick="alert('js alert: settings pressed');">
+                <img src="svg/settings.svg"/>
+            </button>
+            <button class="titlebar-btn" @onclick="WindowService.Minimize">
+                <img src="svg/minimize.svg"/>
+            </button>
+            <button class="titlebar-btn" @onclick="WindowService.Maximize">
+                @if (WindowService.IsMaximized())
+                {
+                    <img src="svg/restore.svg"/>
+                }
+                else
+                {
+                    <img src="svg/maximize.svg"/>
+                }
+            </button>
+            <button class="titlebar-cbtn" @onclick="() => WindowService.Close(false)">
+                <img src="svg/dismiss.svg"/>
+            </button>
+        </MToolbar>
+
+        <MTabsItems @bind-Value="tab">
+            @foreach (var item in items)
+            {
+                <MTabItem Value="item">
+                    <MCard Flat>
+                        <MCardText>@text</MCardText>
+                    </MCard>
+                </MTabItem>
+            }
+        </MTabsItems>
+    </MCard>
+    <!--新增的Masa.Blazor Tab案例代码结束-->
+</MApp>
+
+@code {
+
+    #region Masa.Blazor Tab案例C#代码
+
+    StringNumber tab;
+
+    List<string> items = new()
+    {
+        "web", "shopping", "videos", "images", "news",
+    };
+
+    string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
+    #endregion
+
+    protected override void OnInitialized()
+    {
+        WindowService.Init();
+        base.OnInitialized();
+    }
+
+}

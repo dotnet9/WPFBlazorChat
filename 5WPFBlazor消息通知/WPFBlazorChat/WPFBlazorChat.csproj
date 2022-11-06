@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<RootNameSpace>WPFBlazorChat</RootNameSpace>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Masa.Blazor" Version="0.6.0" />
+		<PackageReference Include="ModernWpfUI" Version="0.9.7-preview.2" />
+		<PackageReference Include="Simplify.Windows.Forms" Version="1.1.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="7.0.0-rc.2.6866" />
+	</ItemGroup>
+
+</Project>
