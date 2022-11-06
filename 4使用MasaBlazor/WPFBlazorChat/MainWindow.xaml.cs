@@ -10,6 +10,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddWpfBlazorWebView();
+        serviceCollection.AddMasaBlazor();
         Resources.Add("services", serviceCollection.BuildServiceProvider());
     }
 }
