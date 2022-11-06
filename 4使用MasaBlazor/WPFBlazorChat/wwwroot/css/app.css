@@ -63,14 +63,13 @@ html, body {
 
 .titlebar-btn, .titlebar-cbtn {
     width: 46px;
-    background-color: #7160E8;
     color: white;
     border: none;
     border-radius: 0;
 }
 
 .titlebar-btn:hover {
-    background-color: #5A5A5A;
+    background-color: #66BCD4;
 }
 
 .titlebar-btn:focus, .titlebar-cbtn:focus {

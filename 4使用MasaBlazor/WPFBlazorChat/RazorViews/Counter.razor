@@ -1,68 +1,41 @@
 ﻿@using WPFBlazorChat.Services
 
 <MApp>
-    <!--上一小节的标题栏开始-->
-    <div class="titlebar" @ondblclick="WindowService.Maximize" @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
-        <button class="titlebar-btn" onclick="alert('js alert: navigation pressed');">
-            <img src="svg/navigation.svg"/>
-        </button>
-        <div class="window-title">
-            测试窗体标题
-        </div>
-        <div style="flex-grow: 1"></div>
-        <button class="titlebar-btn" onclick="alert('js alert: settings pressed');">
-            <img src="svg/settings.svg"/>
-        </button>
-        <button class="titlebar-btn" @onclick="WindowService.Minimize">
-            <img src="svg/minimize.svg"/>
-        </button>
-        <button class="titlebar-btn" @onclick="WindowService.Maximize">
-            @if (WindowService.IsMaximized())
-            {
-                <img src="svg/restore.svg"/>
-            }
-            else
-            {
-                <img src="svg/maximize.svg"/>
-            }
-        </button>
-        <button class="titlebar-cbtn" @onclick="() => WindowService.Close(false)">
-            <img src="svg/dismiss.svg"/>
-        </button>
-    </div>
-    <!--上一小节的标题栏结束-->
-    
+
     <!--新增的Masa.Blazor Tab案例代码开始-->
     <MCard>
-        <MToolbar Color="cyan" Dark Flat>
-            <ChildContent>
-                <MAppBarNavIcon></MAppBarNavIcon>
-
-                <MToolbarTitle>Your Dashboard</MToolbarTitle>
-
-                <MSpacer></MSpacer>
-
-                <MButton Icon>
-                    <MIcon>mdi-magnify</MIcon>
-                </MButton>
-
-                <MButton Icon>
-                    <MIcon>mdi-dots-vertical</MIcon>
-                </MButton>
-            </ChildContent>
-
-            <ExtensionContent>
-                <MTabs @bind-Value="tab"
-                       AlignWithTitle
-                       SliderColor="yellow">
-                    @foreach (var item in items)
-                    {
-                        <MTab Value="item">
-                            @item
-                        </MTab>
-                    }
-                </MTabs>
-            </ExtensionContent>
+        <MToolbar Color="cyan" Dark Flat @ondblclick="WindowService.Maximize" @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
+            <MTabs @bind-Value="tab"
+                   AlignWithTitle
+                   SliderColor="yellow">
+                @foreach (var item in items)
+                {
+                    <MTab Value="item">
+                        @item
+                    </MTab>
+                }
+            </MTabs>
+            
+            <div style="flex-grow: 1"></div>
+            <button class="titlebar-btn" onclick="alert('js alert: settings pressed');">
+                <img src="svg/settings.svg"/>
+            </button>
+            <button class="titlebar-btn" @onclick="WindowService.Minimize">
+                <img src="svg/minimize.svg"/>
+            </button>
+            <button class="titlebar-btn" @onclick="WindowService.Maximize">
+                @if (WindowService.IsMaximized())
+                {
+                    <img src="svg/restore.svg"/>
+                }
+                else
+                {
+                    <img src="svg/maximize.svg"/>
+                }
+            </button>
+            <button class="titlebar-cbtn" @onclick="() => WindowService.Close(false)">
+                <img src="svg/dismiss.svg"/>
+            </button>
         </MToolbar>
 
         <MTabsItems @bind-Value="tab">
@@ -82,6 +55,7 @@
 @code {
 
     #region Masa.Blazor Tab案例C#代码
+
     StringNumber tab;
 
     List<string> items = new()
@@ -92,8 +66,7 @@
     string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
     #endregion
-    
-    
+
     protected override void OnInitialized()
     {
         WindowService.Init();
