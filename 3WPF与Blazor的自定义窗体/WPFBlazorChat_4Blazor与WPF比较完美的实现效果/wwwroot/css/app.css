@@ -1,0 +1,90 @@
+﻿/*
+BlazorDesktopWPF-CustomTitleBar - © Copyright 2021 - Jam-Es.com
+Licensed under the MIT License (MIT). See LICENSE in the repo root for license information.
+*/
+
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.content-container {
+    padding: 0px 20px 20px 20px;
+    flex-grow: 1;
+    overflow-y: scroll;
+}
+
+.titlebar {
+    width: 100%;
+    height: 32px;
+    min-height: 32px;
+    background-color: #7160E8;
+    display: flex;
+    flex-direction: row;
+}
+
+.titlebar-btn, .titlebar-cbtn {
+    width: 46px;
+    background-color: #7160E8;
+    color: white;
+    border: none;
+    border-radius: 0;
+}
+
+.titlebar-btn:hover {
+    background-color: #5A5A5A;
+}
+
+.titlebar-btn:focus, .titlebar-cbtn:focus {
+    outline: 0;
+}
+
+.titlebar-cbtn:hover {
+    background-color: #E81123;
+}
+
+.window-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5px;
+    color: white;
+}

@@ -1,0 +1,50 @@
+﻿@using WPFBlazorChat.Services
+
+<div class="titlebar" @ondblclick="WindowService.Maximize" @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove">
+    <button class="titlebar-btn" onclick="alert('js alert: navigation pressed');">
+        <img src="svg/navigation.svg" />
+    </button>
+    <div class="window-title">
+        测试窗体标题
+    </div>
+    <div style="flex-grow:1"></div>
+    <button class="titlebar-btn" onclick="alert('js alert: settings pressed');">
+        <img src="svg/settings.svg" />
+    </button>
+    <button class="titlebar-btn" @onclick="WindowService.Minimize">
+        <img src="svg/minimize.svg" />
+    </button>
+    <button class="titlebar-btn" @onclick="WindowService.Maximize">
+        @if (WindowService.IsMaximized())
+        {
+            <img src="svg/restore.svg" />
+        }
+        else
+        {
+            <img src="svg/maximize.svg" />
+        }
+    </button>
+    <button class="titlebar-cbtn" @onclick="()=>WindowService.Close(false)">
+        <img src="svg/dismiss.svg" />
+    </button>
+</div>
+
+<p>好开心，你点我了，现在是:<span style="color: red;">@currentCount</span></p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">快快点我</button>
+
+@code {
+    private int currentCount = 0;
+
+    protected override void OnInitialized()
+    {
+
+        WindowService.Init();
+        base.OnInitialized();
+    }
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
