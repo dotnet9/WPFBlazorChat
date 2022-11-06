@@ -87,3 +87,7 @@ html, body {
     margin-left: 5px;
     color: white;
 }
+
+::-webkit-scrollbar {
+    width: 0px;
+}
