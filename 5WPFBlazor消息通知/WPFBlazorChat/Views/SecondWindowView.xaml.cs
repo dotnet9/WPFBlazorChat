@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
-namespace WPFBlazorChat;
+namespace WPFBlazorChat.Views;
 
-public partial class MainWindow : Window
+public partial class SecondWindowView : Window
 {
-    public MainWindow()
+    public SecondWindowView()
     {
         InitializeComponent();
         var serviceCollection = new ServiceCollection();

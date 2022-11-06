@@ -1,4 +1,5 @@
 ﻿@using WPFBlazorChat.Services
+@using WPFBlazorChat.Messages
 
 <MApp>
 
@@ -15,7 +16,7 @@
                     </MTab>
                 }
             </MTabs>
-            
+
             <div style="flex-grow: 1"></div>
             <button class="titlebar-btn" onclick="alert('js alert: settings pressed');">
                 <img src="svg/settings.svg"/>
@@ -50,6 +51,21 @@
         </MTabsItems>
     </MCard>
     <!--新增的Masa.Blazor Tab案例代码结束-->
+
+    <MCard>
+        <MRow>
+            <MCol>
+                <MButton class="mx-2" Fab Dark Color="indigo" OnClick="OpenNewSecondView">
+                    <MIcon>mdi-plus</MIcon>
+                </MButton>
+            </MCol>
+            <MCol>
+                <MButton class="mx-2"  Fab Small Dark Color="pink" OnClick="SendNumber">
+                    <MIcon>mdi-heart</MIcon>
+                </MButton>
+            </MCol>
+        </MRow>
+    </MCard>
 </MApp>
 
 @code {
@@ -71,6 +87,16 @@
     {
         WindowService.Init();
         base.OnInitialized();
+    }
+
+    void OpenNewSecondView()
+    {
+        Messenger.Default.Publish(this, new OpenSecondViewMessage(this));
+    }
+
+    void SendNumber()
+    {
+        Messenger.Default.Publish(this, new SendRandomDataMessage(this, DateTime.Now.Millisecond));
     }
 
 }
