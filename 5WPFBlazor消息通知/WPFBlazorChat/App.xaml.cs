@@ -8,7 +8,7 @@ public partial class App : Application
 {
     public App()
     {
-        // 订阅打开聊天窗口消息，在主窗口点击用户时，确认后会发送此消息
+        // 订阅打开子窗口消息，在主窗口点击【+】按钮
         Messenger.Default.Subscribe<OpenSecondViewMessage>(this, msg =>
         {
             var chatWin = new SecondWindowView();

@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         Title="主窗体" Height="450" Width="800"
         ui:TitleBar.ExtendViewIntoTitleBar="True"
+        WindowStartupLocation="CenterScreen"
         ui:TitleBar.IsBackButtonVisible="False"
         ui:TitleBar.Style="{DynamicResource AppTitleBarStyle}"
         ui:WindowHelper.UseModernWindowStyle="True">

@@ -11,6 +11,7 @@
         ui:TitleBar.ExtendViewIntoTitleBar="True"
         ui:TitleBar.IsBackButtonVisible="False"
         ui:TitleBar.Style="{DynamicResource AppTitleBarStyle}"
+        WindowStartupLocation="CenterScreen"
         ui:WindowHelper.UseModernWindowStyle="True">
     <Border Background="#7160E8" CornerRadius="5">
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
