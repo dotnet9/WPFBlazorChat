@@ -29,10 +29,7 @@ public class WindowService
         _startMouseX = GetX();
         _startMouseY = GetY();
         var window = GetActiveWindow();
-        if (window == null)
-        {
-            return;
-        }
+        if (window == null) return;
 
         _startWindLeft = window.Left;
         _startWindTop = window.Top;
@@ -46,30 +43,22 @@ public class WindowService
     public static void Minimize()
     {
         var window = GetActiveWindow();
-        if (window != null)
-        {
-            window.WindowState = WindowState.Minimized;
-        }
+        if (window != null) window.WindowState = WindowState.Minimized;
     }
 
     public static void Maximize()
     {
         var window = GetActiveWindow();
         if (window != null)
-        {
             window.WindowState =
                 window.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-        }
     }
 
 
     public static bool IsMaximized()
     {
         var window = GetActiveWindow();
-        if (window != null)
-        {
-            return window.WindowState == WindowState.Maximized;
-        }
+        if (window != null) return window.WindowState == WindowState.Maximized;
 
         return false;
     }
@@ -83,27 +72,18 @@ public class WindowService
         }
 
         var window = GetActiveWindow();
-        if (window != null)
-        {
-            window.Close();
-        }
+        if (window != null) window.Close();
     }
 
 
     private static void UpdateWindowPos(object? sender, EventArgs e)
     {
-        if (!_isMoving)
-        {
-            return;
-        }
+        if (!_isMoving) return;
 
-        double moveX = GetX() - _startMouseX;
-        double moveY = GetY() - _startMouseY;
-        Window? window = GetActiveWindow();
-        if (window == null)
-        {
-            return;
-        }
+        var moveX = GetX() - _startMouseX;
+        var moveY = GetY() - _startMouseY;
+        var window = GetActiveWindow();
+        if (window == null) return;
 
         window.Left = _startWindLeft + moveX;
         window.Top = _startWindTop + moveY;

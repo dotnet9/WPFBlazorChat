@@ -2,10 +2,10 @@
 
 public class SendRandomDataMessage : Message
 {
-    public int Number { get; set; }
-
     public SendRandomDataMessage(object sender, int number) : base(sender)
     {
-        this.Number = number;
+        Number = number;
     }
+
+    public int Number { get; set; }
 }

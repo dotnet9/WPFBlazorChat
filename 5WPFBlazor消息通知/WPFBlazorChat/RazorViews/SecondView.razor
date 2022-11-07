@@ -1,5 +1,4 @@
 ﻿@using WPFBlazorChat.Messages
-@using WPFBlazorChat.Views
 <MApp>
     <MToolbar>
         <MTabs BackgroundColor="primary" Grow Dark>
@@ -20,6 +19,14 @@
             </MTab>
         </MTabs>
     </MToolbar>
+    
+    <MRow>
+        <MButton class="mx-2" Fab Dark Large Color="purple" OnClick="ReponseMessage">
+            <MIcon>
+                mdi-android
+            </MIcon>
+        </MButton>
+    </MRow>
 </MApp>
 
 @code
@@ -34,5 +41,11 @@
             this.InvokeAsync(() => { this.tagCount = msg.Number; });
             this.StateHasChanged();
         }, ThreadOption.UiThread);
+    }
+
+    void ReponseMessage()
+    {
+        // 通知主窗体，我已经收到消息，请不要再发
+        Messenger.Default.Publish(this, new ReceivedResponseMessage(this));
     }
 }

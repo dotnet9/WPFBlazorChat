@@ -1,4 +1,5 @@
-﻿@using WPFBlazorChat.Services
+﻿@using Masa.Blazor.Presets
+@using WPFBlazorChat.Services
 @using WPFBlazorChat.Messages
 
 <MApp>
@@ -60,12 +61,22 @@
                 </MButton>
             </MCol>
             <MCol>
-                <MButton class="mx-2"  Fab Small Dark Color="pink" OnClick="SendNumber">
+                <MButton class="mx-2" Fab Small Dark Color="pink" OnClick="SendNumber">
                     <MIcon>mdi-heart</MIcon>
                 </MButton>
             </MCol>
         </MRow>
     </MCard>
+
+    <!--确认对话框开始-->
+    <PConfirm Visible="_showComfirmDialog"
+              Title="子窗体来回应了"
+              Type="AlertTypes.Warning"
+              OnCancel="() => _showComfirmDialog = false"
+              OnOk="() => _showComfirmDialog = false">
+        说你别没事一直发，它们烦！
+    </PConfirm>
+    <!--确认对话框结束-->
 </MApp>
 
 @code {
@@ -83,9 +94,19 @@
 
     #endregion
 
+    // 是否显示确认对话框
+    bool _showComfirmDialog;
+
     protected override void OnInitialized()
     {
         WindowService.Init();
+
+    // 订阅子窗体响应的消息，它已经收到消息了，我可以休息下再发
+        Messenger.Default.Subscribe<ReceivedResponseMessage>(this, msg =>
+        {
+            this.InvokeAsync(() => { _showComfirmDialog = true; });
+            this.StateHasChanged();
+        }, ThreadOption.UiThread);
         base.OnInitialized();
     }
 

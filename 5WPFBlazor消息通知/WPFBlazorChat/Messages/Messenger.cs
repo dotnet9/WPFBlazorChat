@@ -8,34 +8,34 @@ namespace WPFBlazorChat.Messages;
 
 public class Messenger : IMessenger
 {
-    public static readonly Messenger Default = new Messenger();
-    private readonly object registerLock = new object();
+    public static readonly Messenger Default = new();
+    private readonly object registerLock = new();
 
     private Dictionary<Type, List<WeakActionAndToken>>? recipientsOfSubclassesAction;
 
     public void Subscribe<TMessage>(object recipient, Action<TMessage> action, ThreadOption threadOption)
         where TMessage : Message
     {
-        lock (this.registerLock)
+        lock (registerLock)
         {
             var messageType = typeof(TMessage);
 
-            this.recipientsOfSubclassesAction ??= new Dictionary<Type, List<WeakActionAndToken>>();
+            recipientsOfSubclassesAction ??= new Dictionary<Type, List<WeakActionAndToken>>();
 
             List<WeakActionAndToken> list;
 
-            if (!this.recipientsOfSubclassesAction.ContainsKey(messageType))
+            if (!recipientsOfSubclassesAction.ContainsKey(messageType))
             {
                 list = new List<WeakActionAndToken>();
-                this.recipientsOfSubclassesAction.Add(messageType, list);
+                recipientsOfSubclassesAction.Add(messageType, list);
             }
             else
             {
-                list = this.recipientsOfSubclassesAction[messageType];
+                list = recipientsOfSubclassesAction[messageType];
             }
 
             var item = new WeakActionAndToken
-            { Recipient = recipient, ThreadOption = threadOption, Action = action };
+                { Recipient = recipient, ThreadOption = threadOption, Action = action };
 
             list.Add(item);
         }
@@ -45,13 +45,11 @@ public class Messenger : IMessenger
     {
         var messageType = typeof(TMessage);
 
-        if (recipient == null || this.recipientsOfSubclassesAction == null ||
-            this.recipientsOfSubclassesAction.Count == 0 || !this.recipientsOfSubclassesAction.ContainsKey(messageType))
-        {
+        if (recipient == null || recipientsOfSubclassesAction == null ||
+            recipientsOfSubclassesAction.Count == 0 || !recipientsOfSubclassesAction.ContainsKey(messageType))
             return;
-        }
 
-        var lstActions = this.recipientsOfSubclassesAction[messageType];
+        var lstActions = recipientsOfSubclassesAction[messageType];
         for (var i = lstActions.Count - 1; i >= 0; i--)
         {
             var item = lstActions[i];
@@ -60,9 +58,7 @@ public class Messenger : IMessenger
             if (pastAction != null
                 && recipient == pastAction.Target
                 && (action == null || action.Method.Name == pastAction.Method.Name))
-            {
                 lstActions.Remove(item);
-            }
         }
     }
 
@@ -70,9 +66,9 @@ public class Messenger : IMessenger
     {
         var messageType = typeof(TMessage);
 
-        if (this.recipientsOfSubclassesAction != null)
+        if (recipientsOfSubclassesAction != null)
         {
-            var listClone = this.recipientsOfSubclassesAction.Keys.Take(this.recipientsOfSubclassesAction.Count)
+            var listClone = recipientsOfSubclassesAction.Keys.Take(recipientsOfSubclassesAction.Count)
                 .ToList();
 
             foreach (var type in listClone)
@@ -80,16 +76,11 @@ public class Messenger : IMessenger
                 List<WeakActionAndToken>? list = null;
 
                 if (messageType == type || messageType.IsSubclassOf(type) || type.IsAssignableFrom(messageType))
-                {
-                    list = this.recipientsOfSubclassesAction[type]
-                        .Take(this.recipientsOfSubclassesAction[type].Count)
+                    list = recipientsOfSubclassesAction[type]
+                        .Take(recipientsOfSubclassesAction[type].Count)
                         .ToList();
-                }
 
-                if (list is { Count: > 0 })
-                {
-                    this.SendToList(message, list);
-                }
+                if (list is { Count: > 0 }) SendToList(message, list);
             }
         }
     }
@@ -101,9 +92,7 @@ public class Messenger : IMessenger
         var listClone = list.Take(list.Count()).ToList();
 
         foreach (var item in listClone)
-        {
             if (item.Action is { Target: { } })
-            {
                 switch (item.ThreadOption)
                 {
                     case ThreadOption.BackgroundThread:
@@ -116,8 +105,6 @@ public class Messenger : IMessenger
                         item.ExecuteWithObject(message);
                         break;
                 }
-            }
-        }
     }
 }
 
@@ -133,9 +120,6 @@ public class WeakActionAndToken
 
     public void ExecuteWithObject<TMessage>(TMessage message) where TMessage : Message
     {
-        if (this.Action is Action<TMessage> factAction)
-        {
-            factAction.Invoke(message);
-        }
+        if (Action is Action<TMessage> factAction) factAction.Invoke(message);
     }
 }
