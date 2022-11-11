@@ -1,0 +1,66 @@
+﻿@using WPFBlazorChat.Models
+@using System.Globalization
+@inject UserInfo CurrentUser
+<MApp>
+    <div>
+        <MAppBar Color="deep-purple accent-4" @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove"
+                 Dense
+                 Dark>
+            <MAppBarNavIcon></MAppBarNavIcon>
+
+            <MToolbarTitle>聊天对话框-@CurrentUser.Title</MToolbarTitle>
+
+            <MSpacer></MSpacer>
+            
+
+            <MButton Icon>
+                <MIcon>mdi-magnify</MIcon>
+            </MButton>
+        </MAppBar>
+    </div>
+    
+    <MRow>
+        <MTextarea Solo @bind-Value="chatLogList"
+            Label="历史聊天记录">
+        </MTextarea>
+    </MRow>
+    <MRow>
+        <MTextarea Solo @bind-Value="newMsg" OnKeyUp="SendMsg"
+                   Label="新消息这里输入">
+        </MTextarea>
+    </MRow>
+</MApp>
+
+@code {
+    private string chatLogList="历史聊天记录在这里";
+    private string newMsg = "";
+    protected override void OnInitialized()
+    {
+        WindowService.Init();
+        chatLogList = "test;";
+        newMsg = "新消息这里输入";
+
+
+
+        Messenger.Default.Subscribe<SendMessage>(this, msg =>
+        {
+            this.InvokeAsync(() =>
+            {
+            chatLogList += $"\r\n{msg.FromUser.Title} - {msg.Message}";
+            this.StateHasChanged();
+            });
+        }, ThreadOption.UiThread);
+        
+        base.OnInitialized();
+    }
+
+    void SendMsg(KeyboardEventArgs args)
+    {
+        if (args.Key != "Enter" || string.IsNullOrWhiteSpace(newMsg))
+        {
+            return;
+        }
+
+        Messenger.Default.Publish(this, new SendMessage(this, CurrentUser,DateTime.Now.ToString(CultureInfo.InvariantCulture)));
+    }
+}

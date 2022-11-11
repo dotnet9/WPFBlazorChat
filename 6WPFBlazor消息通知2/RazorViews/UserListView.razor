@@ -1,0 +1,137 @@
+﻿@using Masa.Blazor.Presets
+@using WPFBlazorChat.Models
+<MApp>
+    <MCard
+        Class="mx-auto">
+        <MToolbar Color="cyan" @onmouseup="WindowService.StopMove" @onmousedown="WindowService.StartMove"
+                  Dark>
+            <MAppBarNavIcon></MAppBarNavIcon>
+
+            <MToolbarTitle>Inbox</MToolbarTitle>
+
+            <MSpacer></MSpacer>
+
+            <MButton Icon>
+                <MIcon>mdi-magnify</MIcon>
+            </MButton>
+        </MToolbar>
+
+        <MList ThreeLine>
+            @foreach (var item in _items)
+            {
+                @if (item.Header != null)
+                {
+                    <MSubheader>@item.Header</MSubheader>
+                }
+                else if (item.Divider)
+                {
+                    <MDivider Inset="item.Inset"></MDivider>
+                }
+                else
+                {
+                    <MListItem OnClick="() => ShowChatWindow(item)">
+                        <MListItemAvatar>
+                            <MImage Src="@item.Avatar"></MImage>
+                        </MListItemAvatar>
+
+                        <MListItemContent>
+                            <MListItemTitle>@((MarkupString)item.Title)</MListItemTitle>
+                            <MListItemSubtitle>@((MarkupString)item.SubTitle)</MListItemSubtitle>
+                        </MListItemContent>
+                    </MListItem>
+                }
+            }
+        </MList>
+    </MCard>
+    
+    <!--确认对话框开始-->
+    <PConfirm Visible="_showComfirmDialog"
+              Title="打开与该用户的聊天窗口吗？"
+              Type="AlertTypes.Warning"
+              OnCancel="() => _showComfirmDialog = false"
+              OnOk="() =>  OpenChatWindow()">
+        是的
+    </PConfirm>
+    <!--确认对话框结束-->
+</MApp>
+
+@code {
+        private UserInfo[] _items = new UserInfo[]
+        {
+       new UserInfo { Header="Today" },
+       new UserInfo
+       {
+           Avatar="https://cdn.masastack.com/stack/images/website/masa-blazor/lists/1.png",
+           Title="张三",
+           SubTitle="<span class=\"text--primary\">Ali Connors</span> &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?"
+       },
+       new UserInfo
+       {
+           Divider=true,
+           Inset=true
+       },
+       new UserInfo
+       {
+           Avatar="https://cdn.masastack.com/stack/images/website/masa-blazor/lists/2.png",
+           Title="李四",
+           SubTitle="<span class=\"text--primary\">to Alex, Scott, Jennifer</span> &mdash; Wish I could come, but I'm out of town this weekend."
+       },
+       new UserInfo
+       {
+           Divider=true,
+           Inset=true
+       },
+       new UserInfo
+       {
+           Avatar="https://cdn.masastack.com/stack/images/website/masa-blazor/lists/3.png",
+           Title="王五",
+           SubTitle="<span class=\"text--primary\">Sandra Adams</span> &mdash; Do you have Paris recommendations? Have you ever been?"
+       },
+       new UserInfo
+       {
+           Divider=true,
+           Inset=true
+       },
+       new UserInfo
+       {
+           Avatar="https://cdn.masastack.com/stack/images/website/masa-blazor/lists/4.png",
+           Title="Birthday gift",
+           SubTitle="<span class=\"text--primary\">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?"
+       },
+       new UserInfo
+       {
+           Divider=true,
+           Inset=true
+       },
+       new UserInfo
+       {
+           Avatar="https://cdn.masastack.com/stack/images/website/masa-blazor/lists/5.png",
+           Title="Recipe to try",
+           SubTitle="<span class=\"text--primary\">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos."
+       }
+        };
+
+        
+
+    private bool _showComfirmDialog = false;
+    private UserInfo? _selectedUser = null;
+
+    protected override void OnInitialized()
+    {
+        WindowService.Init();
+        base.OnInitialized();
+    }
+
+    private void ShowChatWindow(UserInfo userInfo)
+    {
+        this._showComfirmDialog = true;
+        this._selectedUser = userInfo;
+    }
+
+    private void OpenChatWindow()
+    {
+        Messenger.Default.Publish(this, new OpenChatViewMessage(this, this._selectedUser!));
+
+        this._showComfirmDialog = false;
+    }
+}
