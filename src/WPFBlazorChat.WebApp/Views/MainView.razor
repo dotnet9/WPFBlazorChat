@@ -1,8 +1,10 @@
 ﻿@using Masa.Blazor.Presets
 @using WPFBlazorChat.Core.Services
 @using WPFBlazorChat.Shared.Services
+@using WPFBlazorChat.WebApp.Interops
 @inject IWindowService WindowService
 @inject IUserService UserService
+@inject MainInterop MainInterop
 
 <MErrorHandler>
     <MApp Dark>
@@ -10,9 +12,8 @@
         <!--标题栏开始-->
         <MAppBar Color="deep-purple accent-4"
                  Style="cursor: default"
-                 App Dense
-                 @onmouseup="WindowService.StopMove"
-                 @onmousedown="WindowService.StartMove">
+                 Id="@appId"
+                 App Dense>
             <MAvatar Size="35" Class="ml-0 mr-5">
                 <MImage Src="https://dotnet9.com/images/logo.png">
                 </MImage>

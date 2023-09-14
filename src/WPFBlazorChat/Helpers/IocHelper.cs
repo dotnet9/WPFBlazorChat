@@ -1,5 +1,6 @@
 ﻿using WPFBlazorChat.Core.Services;
 using WPFBlazorChat.Shared.Services;
+using WPFBlazorChat.WebApp.Interops;
 using WPFBlazorChat.WebApp.MasaExtensions;
 
 namespace WPFBlazorChat.Helpers;
@@ -20,8 +21,10 @@ public static class IocHelper
         _services = new ServiceCollection();
         _services.AddMasaSetup();
         _services.AddWpfBlazorWebView();
+        _services.AddBlazorWebViewDeveloperTools();
         _services.TryAddSingleton<IUserService, UserService>();
         _services.TryAddSingleton<IWindowService, WindowService>();
+        _services.TryAddScoped<MainInterop>();
 
         return _services!;
     }

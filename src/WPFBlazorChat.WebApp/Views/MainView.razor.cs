@@ -9,6 +9,8 @@ public partial class MainView
 {
     private User? _selectedUser = null;
 
+    private string appId = Guid.NewGuid().ToString("N");
+
     // 确认对话框
     private bool _showComfirmDialog = false;
 
@@ -33,9 +35,16 @@ public partial class MainView
 
     protected override Task OnInitializedAsync()
     {
-        WindowService.Init();
         Messenger.Default.Subscribe<ChoiceUserMessage>(this, SelectUser, ThreadOption.UiThread, null);
         return base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await MainInterop.Init(appId);
+        }
     }
 
     protected void SelectUser(ChoiceUserMessage msg)

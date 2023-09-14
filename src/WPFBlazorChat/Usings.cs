@@ -2,4 +2,4 @@
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.DependencyInjection.Extensions;
 global using System.Windows;
-global using WPFBlazorChat.Services;
+global using WPFBlazorChat;

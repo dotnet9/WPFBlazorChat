@@ -1,15 +1,16 @@
 ﻿@using WPFBlazorChat.Core.Services
 @using WPFBlazorChat.Shared.Models
 @using WPFBlazorChat.Shared.Services
+@using WPFBlazorChat.WebApp.Interops
 @inject User CurrentUser
 @inject IWindowService WindowService
 @inject IUserService UserService
+@inject MainInterop MainInterop
 
 <MErrorHandler>
     <MApp>
         <!--标题栏开始-->
-        <MAppBar App @onmousedown="WindowService.StartMove"
-                 @onmouseup="WindowService.StopMove"
+        <MAppBar App Id="@appId"
                  @ondblclick="WindowService.Maximize"
                  ElevateOnScroll Color="white"
                  Dense

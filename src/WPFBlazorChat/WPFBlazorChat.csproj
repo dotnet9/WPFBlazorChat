@@ -7,6 +7,9 @@
     </PropertyGroup>
     <ItemGroup>
         <Content Include="Images\favicon.ico" />
+        <Content Update="wwwroot\**">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Masa.Blazor" Version="0.6.0" />

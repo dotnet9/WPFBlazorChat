@@ -8,6 +8,7 @@ namespace WPFBlazorChat.WebApp.Views;
 
 public partial class WeChatView
 {
+    private string appId = Guid.NewGuid().ToString("N");
     private bool _miniDrawer = true;
     private bool _drawer = true;
 
@@ -27,8 +28,6 @@ public partial class WeChatView
 
     protected override Task OnInitializedAsync()
     {
-        WindowService.Init();
-
         // 获取好友，或者包含自己的群组
         _users = UserService.GetUsers().Where(x => ((x.Type != (int)UserType.Group && x.Id != CurrentUser.Id))
                                                    || (x.Type == (int)UserType.Group &&
@@ -36,6 +35,14 @@ public partial class WeChatView
 
         Messenger.Default.Subscribe<SendChatLogMessage>(this, ReceiveMsg, ThreadOption.UiThread, null);
         return base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await MainInterop.Init(appId);
+        }
     }
 
     void ShowUser(User user)

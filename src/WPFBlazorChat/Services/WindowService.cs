@@ -1,27 +1,21 @@
 ﻿using System.Windows.Forms;
 using System.Windows.Threading;
+using Microsoft.JSInterop;
 using WPFBlazorChat.Core.Services;
 using Application = System.Windows.Application;
 
-namespace WPFBlazorChat.Services;
+namespace WPFBlazorChat;
 
 public class WindowService : IWindowService
 {
-    private bool _isMoving;
-    private double _startMouseX;
-    private double _startMouseY;
-    private double _startWindLeft;
-    private double _startWindTop;
+    private static bool _isMoving;
+    private static double _startMouseX;
+    private static double _startMouseY;
+    private static double _startWindLeft;
+    private static double _startWindTop;
 
-    public void Init()
-    {
-        DispatcherTimer dispatcherTimer = new();
-        dispatcherTimer.Tick += UpdateWindowPos;
-        dispatcherTimer.Interval = TimeSpan.FromMilliseconds(17);
-        dispatcherTimer.Start();
-    }
-
-    public void StartMove()
+    [JSInvokable]
+    public static void StartMove()
     {
         _isMoving = true;
         _startMouseX = GetX();
@@ -36,9 +30,31 @@ public class WindowService : IWindowService
         _startWindTop = window.Top;
     }
 
-    public void StopMove()
+    [JSInvokable]
+    public static void StopMove()
     {
         _isMoving = false;
+    }
+
+
+    [JSInvokable]
+    public static void UpdateWindowPos()
+    {
+        if (!_isMoving)
+        {
+            return;
+        }
+
+        double moveX = GetX() - _startMouseX;
+        double moveY = GetY() - _startMouseY;
+        Window? window = GetActiveWindow();
+        if (window == null)
+        {
+            return;
+        }
+
+        window.Left = _startWindLeft + moveX;
+        window.Top = _startWindTop + moveY;
     }
 
     public void Minimize()
@@ -85,26 +101,6 @@ public class WindowService : IWindowService
         {
             window.Close();
         }
-    }
-
-
-    private void UpdateWindowPos(object? sender, EventArgs e)
-    {
-        if (!_isMoving)
-        {
-            return;
-        }
-
-        double moveX = GetX() - _startMouseX;
-        double moveY = GetY() - _startMouseY;
-        Window? window = GetActiveWindow();
-        if (window == null)
-        {
-            return;
-        }
-
-        window.Left = _startWindLeft + moveX;
-        window.Top = _startWindTop + moveY;
     }
 
     private static int GetX()
