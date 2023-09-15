@@ -10,14 +10,9 @@
 	<ItemGroup>
 		<SupportedPlatform Include="browser" />
 	</ItemGroup>
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0'))">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
-	</ItemGroup>
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0'))">
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0-rc.2.22476.2" />
-	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="Masa.Blazor" Version="0.6.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.0-rc.1.23421.29" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\WPFBlazorChat.Shared\WPFBlazorChat.Shared.csproj" />

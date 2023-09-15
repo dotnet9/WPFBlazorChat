@@ -18,8 +18,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.Shared", "WPF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFBlazorChat.WebApp", "WPFBlazorChat.WebApp\WPFBlazorChat.WebApp.csproj", "{97BBED5C-E63D-44A6-8BC7-08DCE88C204A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorChat.BlazorServer", "BlazorChat.BlazorServer\BlazorChat.BlazorServer.csproj", "{ED8E6DCF-5FB6-47EF-9ED1-EBA03AE98B7C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,10 +40,6 @@ Global
 		{97BBED5C-E63D-44A6-8BC7-08DCE88C204A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97BBED5C-E63D-44A6-8BC7-08DCE88C204A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97BBED5C-E63D-44A6-8BC7-08DCE88C204A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED8E6DCF-5FB6-47EF-9ED1-EBA03AE98B7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED8E6DCF-5FB6-47EF-9ED1-EBA03AE98B7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED8E6DCF-5FB6-47EF-9ED1-EBA03AE98B7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED8E6DCF-5FB6-47EF-9ED1-EBA03AE98B7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
